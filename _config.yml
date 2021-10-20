@@ -40,3 +40,6 @@ defaults:
       type: post
     values:
       tags: Other
+      
+home_post_limit: 5
+comments_repo: caltuntas/caltuntas.github.io
