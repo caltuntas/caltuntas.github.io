@@ -56,6 +56,9 @@ Birde log mesajının tipini belirten facility seviyeleri bulunuyor.
 | 22             | local use 6  (local6)                    |
 | 23             | local use 7  (local7)                    |
 
+
+![](/img/syslogpriority/syslog.png)
+
 Yukarıda bahsedildiği gibi
 
 ```
