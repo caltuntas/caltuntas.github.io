@@ -36,6 +36,7 @@ titles_from_headings:
 
 header_pages:
   - about.md
+  - archive.md
 
 defaults:
   - scope:
