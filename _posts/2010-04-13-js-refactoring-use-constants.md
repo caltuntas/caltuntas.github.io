@@ -6,7 +6,7 @@ date: 2010-04-13T07:00:00-07:00
 tags: javascript
 ---
 
-Javascript kodlarına bakarsanız etrafta bolca string göreceğinizden eminim. En azından benim eski Javascript kodlarım böyleydi.Daha öncede Java, C# gibi static typed dillerde bunların önüne nasıl geçebileceğimizden bahsetmiştik. Javascript dilinde Constant kavramı olmasa da Object Literal notasyonu kullanarak sabit değişkenler tanımlayabiliriz. Aşağıdaki masum Javascript fonksiyonlarını görüyorsunuz.
+Javascript kodlarına bakarsanız etrafta bolca string göreceğinizden eminim. En azından benim eski Javascript kodlarım böyleydi.[Daha önceden](https://www.cihataltuntas.com/2008/08/06/replace-magic-number.html) Java, C# gibi static typed dillerde bunların önüne nasıl geçebileceğimizden bahsetmiştik. Javascript dilinde Constant kavramı olmasa da Object Literal notasyonu kullanarak sabit değişkenler tanımlayabiliriz. Aşağıdaki masum Javascript fonksiyonlarını görüyorsunuz.
 
 
 ```
@@ -50,4 +50,4 @@ function makePlanned(img) {
 }
 ``` 
 
-Yukarıdaki tanımlama gerçek anlamda oluşturulduktan sonra değiştirilemiyen “constant” ya da “final” değişkenler sunmasa da fantazi olsun diye birisi ImageConfig nesnesi içeriğini değiştirmez ise bu amaçla kullanılabilir.Bu yüzden eğer takım olarak ortak Javascript dosyaları üzerinde değişiklik yapıyorsanız Code Conversions belirlemeniz faydanıza olacaktır. Sizi bilmiyorum ama ben son halini daha çok sevdim :)
+Yukarıdaki tanımlama gerçek anlamda oluşturulduktan sonra değiştirilemiyen “constant” ya da “final” değişkenler sunmasa da fantazi olsun diye birisi ImageConfig nesnesi içeriğini değiştirmez ise bu amaçla kullanılabilir.Bu yüzden eğer takım olarak ortak Javascript dosyaları üzerinde değişiklik yapıyorsanız [Coding Conversions](https://en.wikipedia.org/wiki/Coding_conventions) belirlemeniz faydanıza olacaktır. Sizi bilmiyorum ama ben son halini daha çok sevdim :)
