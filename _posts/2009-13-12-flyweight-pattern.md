@@ -104,8 +104,8 @@ public class Main {
   }
 }
 ```
-Yukarıdaki kodda gördüğünüz gibi, Processor sınıfı BusinessObject nesnelerimizi oluşturuyor. Bunu yaparken belirli kriterlere göre hangi Key sınıfının oluşturulacağını belirleyip BusinessObject sınıfına atama yapıyor. Yukarıda çok fazla nesne oluşturmayı temsil etmek için 1'den 500.000'e kadar bir döngü içerisinde bu nesneleri oluşturdum.Yukarıdaki kodu Profiler çalıştırarak bellek kullanımını gözlemlediğimde aşağıdaki gibi bir sonuç çıkıyor karşıma.
 
+Yukarıdaki kodda gördüğünüz gibi, Processor sınıfı BusinessObject nesnelerimizi oluşturuyor. Bunu yaparken belirli kriterlere göre hangi Key sınıfının oluşturulacağını belirleyip BusinessObject sınıfına atama yapıyor. Yukarıda çok fazla nesne oluşturmayı temsil etmek için 1'den 500.000'e kadar bir döngü içerisinde bu nesneleri oluşturdum.Yukarıdaki kodu Profiler çalıştırarak bellek kullanımını gözlemlediğimde aşağıdaki gibi bir sonuç çıkıyor karşıma.
 
 
 ![](/img/flyweight/profilerresults1.jpg)
@@ -184,6 +184,7 @@ public class ObjectCreator {
   }
 }
 ```
+
 KeyFactory sınıfına bakacak olursanız. Nesneyi oluşturmadan önce bunun bahsettiğimiz gibi HashMap içerisinde olup olmadığını kontrol ediyoruz eğer var ise yeni bir tane oluşturmadan varolanı veriyoruz, eğer yok ise yeni bir tane oluşturup HashMap içerisine daha sonraki istekler için saklıyoruz.Dolayısıyla uygulamamız boyunca sadece 4 tane nesne oluşturmuş oluyoruz.Yukarıdaki gibi kodumuzu değiştirdikten sonra Profiler sonuçlarına tekrar bakalım.
 
 ![](/img/flyweight/profilerresults2.jpg)

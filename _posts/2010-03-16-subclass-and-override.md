@@ -56,6 +56,7 @@ public class PriceCalculator
   }
 }
 ``` 
+
 Yukarıdaki gördüğünüz sınıfın bizim için verilen siperişin ulaştırma maliyetini hesaplayan bir sınıf olduğunu düşünün. Burada gördüğünüz gibi siperiş tutarı eğer 100’den büyük ise belirli bir oranda altın indirim yaparak hesaplıyor, 50 ile 100 arasındaysa belirli oranda bronz indirim yapıp hesaplıyor. Bizden yapmamız istenen bu mantığı değiştirip 50 ile 100 aralığı olan bronz indirim mantığını sipariş tutarı 80 ile 100 arasına çekmek.
 
 Burada kodun çok basit olduğunu unutun ve gerçekten çok daha karmaşık hesaplamaların olduğu bir metodu değiştirmek istediğinizi düşünün. Bunu yapmadan önce dediğim gibi bu konu test altına almak oldukça güvenilir yoldan ilerlemenizi sağlayacaktır. Bu yüzden bende öyle yapıp yukarıdaki kod için aşağıdaki gibi testimi yazmaya başlıyorum.
@@ -95,9 +96,12 @@ public class PriceCalculatorTest
   }
 }
 ``` 
+
 Yukarıdaki testlerde 3 durumu da test içerisine alacak test kodunu yazdım. Eğer sipariş tutarı 200 ise nakliye oranının %5 olduğunu düşünüp sonucun 10 olması gerektiğini söylüyorum. Eğer tutarı 90 olan bronz sipariş nakliye oranının %10 ise sonucun 9 olması gerektiğini yazıyorum. Ve son olarak da tutar 50 için nakliye oranı %14 ise sonucun 7 olduğunu test eden kodu yazıyorum. Testleri çalıştırdığımda aşağıdaki gibi bir Unit Test hatası karşıma çıkıyor
 
+``` 
 PriceCalculatorTest.CalculateNormalOrderShippingCost : …AssertionException: Expected: 7 But was: 950.0d
+``` 
 
 Sebebine baktığımda ise Database üzerinde kayıtlı olan oranların farklı olduğu görüyorum. Bu yüzden beklediğim sonuçlar çıkmıyor. Burada gidip database içerisinden test için değerleri değiştirmek pek mantıklı olmaz.Test kodunu database’deki değerlere göre değiştirmek de pek doğru değil çünkü testimin database’den bağımsız olmasını istiyorum. Başkasının ben farkında olmadan farklı bir değer girdiğinde testlerimin fail etmesini istemiyorum. Yani kısacası burada kısmen gerçek anlamda kontrolün testlerde olmasını her hangi bir dış etkenden etkilenmemesini istiyorum. Daha önceden yazılmış eski kod için bunu yapmanın yollarından biri Subclass and Override verilen teknik. Bunu ilk defa Working Effectively With Legacy Code kitabından öğrenmiştim.  
 
@@ -126,6 +130,7 @@ public class PriceCalculator
   }
 }
 ``` 
+
 Gördüğünüz gibi private olaran metodlar protected virtual olarak değiştirdim. Böylece başka bir sınıfı bu sınıftan türetip bu metodları override edebilirim ve istediğim değerleri döndürebilirim. Bu da testlerimde bu metodların database’e çağrı yapmadan benim istediğim değerleri döndürmemi sağlar kısacası kontrol tekrar testlere geçer.Bu arada eğer yukarıdaki kod bir Java kodu olsaydı
 Java’nın sevdiğim bir özelliği olan metodlar default olarak virtual olduğu için sadece protected yapmam yeterli olacaktı.Test kodlarımı da aşağıdaki gibi değiştiriyorum.
 
@@ -182,6 +187,7 @@ public class PriceCalculatorTest
   }
 }
 ``` 
+
 Yukarıdaki test kodlarında gördüğünüz gibi TestingPriceCalculator adından PriceCalculator’dan türeyen bir sınıf oluşturdum ve virtual metodları override ederek istediğim değerlerin dönmesini sağladım. Normalde PriceCalculator olarak test edilen yerleride bu sınıfla değiştirdiğimde test kodlarının istediğim şekilde çalıştığını görüyorum ve testleri çalıştırdığımda geçtiğini görüyorum.
 
 Gördüğünüz gibi varolan kodda çok küçük değişiklikler yaparak kodu Unit test altına aldık. Bu değişiklikler benimde hoşuma gitmesede eski kodlarda kodu test edebilmek için bu tarz değişiklikler yapmak zorunda kalabiliyoruz. Bu kodu başka şekillerde de test edebilirdik bu teknik onlardan sadece biri. Eski kodu test ederken zaman, yapabileceğiniz değişikliklerin kapsamı gibi etkenler oldukça önemlidir. Bu yüzden elinizdeki araçlardan size en uygun olanını seçmek faydanıza olacaktır.
