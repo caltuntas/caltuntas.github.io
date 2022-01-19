@@ -6,7 +6,6 @@ date: 2010-05-16T07:00:00-07:00
 tags: javascript
 ---
 
-![](/img/evalevil/balyoz_thumb.jpg)
 <img align="left" width="343" height="257" src="/img/evalevil/balyoz_thumb.jpg">
 Javascript programlama dili içerisinde eval fonksiyonu genellikle dinamik kod çalıştırmak için kullanılıyor. Örnek olarak server tarafından dönen bir JSON formatındaki nesneyi eval fonksiyonu ile Javascript nesnesine kolaylıkla dönüştürebiliriz.
 
