@@ -2,7 +2,7 @@
 layout: post
 title: "Flyweight Pattern ile Performans Optimizasyonu"
 description: "Flyweight Pattern ile Performans Optimizasyonu"
-date: 2009-13-12T07:00:00-07:00
+date: 2009-12-13T07:00:00-07:00
 tags: patterns
 ---
 
