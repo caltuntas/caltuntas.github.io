@@ -3,7 +3,7 @@ layout: post
 title: "Eski Kodu Test Etmek : Subclass and Override"
 description: "Eski Kodu Test Etmek : Subclass and Override"
 date: 2010-03-16T07:00:00-07:00
-tags: javascript
+tags: patterns, unit-testing
 ---
 
 Eğer sıfırdan başlamış bir projede(Green Field) başından beri çalışan şanslı insanlardan değilseniz mutlaka sizden daha önce ve şuanda şirkette olmayan birisinin yazdığı anlaşılamaz kodu değiştirmek zorunda kalmıştırsınız. Benimde başıma sık sık gelen bu tarz durumlarda insan biraz kendini Rus-Ruleti oynar konumunda bulabiliyor. Bir yandan şeytan kodu değiştirip riski göze almanızı söylerken, bir yandan içinizden gelen ses hata yapmamanız için tekrar tekrar kodu kontrol edip hata yapmadığınızdan emin olmanızı söylüyor.
@@ -18,42 +18,42 @@ Aşağıdaki gibi daha önceden yazılmış bizim için kritik önem arzeden ve 
 ``` 
 public class PriceCalculator
 {
-	private Database database;
+  private Database database;
 
-	public PriceCalculator()
-	{
-		database =new Database();
-	}
+  public PriceCalculator()
+  {
+    database =new Database();
+  }
 
-	public double CalculateShippingCost(Order order)
-	{
-		if(order.Total>100)
-		{
-			return order.Total*GetGoldenOrderTotalRatio();
-		}
+  public double CalculateShippingCost(Order order)
+  {
+    if(order.Total>100)
+    {
+      return order.Total*GetGoldenOrderTotalRatio();
+    }
 
-		if(order.Total> && order.Total<100)
-		{
-			return order.Total*GetBronzeOrderTotalRatio();
-		}
+    if(order.Total> && order.Total<100)
+    {
+      return order.Total*GetBronzeOrderTotalRatio();
+    }
 
-		return order.Total*GetNormalOrderTotalRatio();
-	}
+    return order.Total*GetNormalOrderTotalRatio();
+  }
 
-	private double GetGoldenOrderTotalRatio()
-	{
-		return (double)database.ExecuteScalar("SELECT Ratio FROM OrderShippingRatio WHERE Type='Golden'");
-	}
+  private double GetGoldenOrderTotalRatio()
+  {
+    return (double)database.ExecuteScalar("SELECT Ratio FROM OrderShippingRatio WHERE Type='Golden'");
+  }
 
-	private double GetBronzeOrderTotalRatio()
-	{
-		return (double)database.ExecuteScalar("SELECT Ratio FROM OrderShippingRatio WHERE Type='Bronze'");
-	}
+  private double GetBronzeOrderTotalRatio()
+  {
+    return (double)database.ExecuteScalar("SELECT Ratio FROM OrderShippingRatio WHERE Type='Bronze'");
+  }
 
-	private double GetNormalOrderTotalRatio()
-	{
-		return (double)database.ExecuteScalar("SELECT Ratio FROM OrderShippingRatio WHERE Type='Normal'");
-	}
+  private double GetNormalOrderTotalRatio()
+  {
+    return (double)database.ExecuteScalar("SELECT Ratio FROM OrderShippingRatio WHERE Type='Normal'");
+  }
 }
 ``` 
 Yukarıdaki gördüğünüz sınıfın bizim için verilen siperişin ulaştırma maliyetini hesaplayan bir sınıf olduğunu düşünün. Burada gördüğünüz gibi siperiş tutarı eğer 100’den büyük ise belirli bir oranda altın indirim yaparak hesaplıyor, 50 ile 100 arasındaysa belirli oranda bronz indirim yapıp hesaplıyor. Bizden yapmamız istenen bu mantığı değiştirip 50 ile 100 aralığı olan bronz indirim mantığını sipariş tutarı 80 ile 100 arasına çekmek.
@@ -64,35 +64,35 @@ Burada kodun çok basit olduğunu unutun ve gerçekten çok daha karmaşık hesa
 [TestFixture]
 public class PriceCalculatorTest
 {
-	[Test]
-		public void CalculateGoldenOrderShippingCost()
-		{
-			PriceCalculator calculator =new PriceCalculator();
-			Order goldenOrder =new Order();
-			goldenOrder.Total = 200;
+  [Test]
+  public void CalculateGoldenOrderShippingCost()
+  {
+    PriceCalculator calculator =new PriceCalculator();
+    Order goldenOrder =new Order();
+    goldenOrder.Total = 200;
 
-			Assert.AreEqual(10, calculator.CalculateShippingCost(goldenOrder));
-		}
+    Assert.AreEqual(10, calculator.CalculateShippingCost(goldenOrder));
+  }
 
-	[Test]
-		public void CalculateBronzeOrderShippingCost()
-		{
-			PriceCalculator calculator = new PriceCalculator();
-			Order bronze = new Order();
-			bronze.Total = 90;
+  [Test]
+  public void CalculateBronzeOrderShippingCost()
+  {
+    PriceCalculator calculator = new PriceCalculator();
+    Order bronze = new Order();
+    bronze.Total = 90;
 
-			Assert.AreEqual(9, calculator.CalculateShippingCost(bronze));
-		}
+    Assert.AreEqual(9, calculator.CalculateShippingCost(bronze));
+  }
 
-	[Test]
-		public void CalculateNormalOrderShippingCost()
-		{
-			PriceCalculator calculator = new PriceCalculator();
-			Order normal = new Order();
-			normal.Total = 50;
+  [Test]
+  public void CalculateNormalOrderShippingCost()
+  {
+    PriceCalculator calculator = new PriceCalculator();
+    Order normal = new Order();
+    normal.Total = 50;
 
-			Assert.AreEqual(7, calculator.CalculateShippingCost(normal));
-		}
+    Assert.AreEqual(7, calculator.CalculateShippingCost(normal));
+  }
 }
 ``` 
 Yukarıdaki testlerde 3 durumu da test içerisine alacak test kodunu yazdım. Eğer sipariş tutarı 200 ise nakliye oranının %5 olduğunu düşünüp sonucun 10 olması gerektiğini söylüyorum. Eğer tutarı 90 olan bronz sipariş nakliye oranının %10 ise sonucun 9 olması gerektiğini yazıyorum. Ve son olarak da tutar 50 için nakliye oranı %14 ise sonucun 7 olduğunu test eden kodu yazıyorum. Testleri çalıştırdığımda aşağıdaki gibi bir Unit Test hatası karşıma çıkıyor
@@ -108,22 +108,22 @@ Subclass and Override tekniğini basit olarak test için kontrol etmeniz gereken
 ``` 
 public class PriceCalculator
 {
-	//Diğer kodlar.....
+  //Diğer kodlar.....
 
-	protected virtual double GetGoldenOrderTotalRatio()
-	{
-		return (double)database.ExecuteScalar("SELECT Ratio FROM OrderShippingRatio WHERE Type='Golden'");
-	}
+  protected virtual double GetGoldenOrderTotalRatio()
+  {
+    return (double)database.ExecuteScalar("SELECT Ratio FROM OrderShippingRatio WHERE Type='Golden'");
+  }
 
-	protected virtual double GetBronzeOrderTotalRatio()
-	{
-		return (double)database.ExecuteScalar("SELECT Ratio FROM OrderShippingRatio WHERE Type='Bronze'");
-	}
+  protected virtual double GetBronzeOrderTotalRatio()
+  {
+    return (double)database.ExecuteScalar("SELECT Ratio FROM OrderShippingRatio WHERE Type='Bronze'");
+  }
 
-	protected virtual double GetNormalOrderTotalRatio()
-	{
-		return (double)database.ExecuteScalar("SELECT Ratio FROM OrderShippingRatio WHERE Type='Normal'");
-	}
+  protected virtual double GetNormalOrderTotalRatio()
+  {
+    return (double)database.ExecuteScalar("SELECT Ratio FROM OrderShippingRatio WHERE Type='Normal'");
+  }
 }
 ``` 
 Gördüğünüz gibi private olaran metodlar protected virtual olarak değiştirdim. Böylece başka bir sınıfı bu sınıftan türetip bu metodları override edebilirim ve istediğim değerleri döndürebilirim. Bu da testlerimde bu metodların database’e çağrı yapmadan benim istediğim değerleri döndürmemi sağlar kısacası kontrol tekrar testlere geçer.Bu arada eğer yukarıdaki kod bir Java kodu olsaydı
@@ -133,53 +133,53 @@ Java’nın sevdiğim bir özelliği olan metodlar default olarak virtual olduğ
 [TestFixture]
 public class PriceCalculatorTest
 {
-	class TestingPriceCalculator : PriceCalculator
-	{
-		protected override double GetGoldenOrderTotalRatio()
-		{
-			return 0.05;
-		}
+  class TestingPriceCalculator : PriceCalculator
+  {
+    protected override double GetGoldenOrderTotalRatio()
+    {
+      return 0.05;
+    }
 
-		protected override double GetBronzeOrderTotalRatio()
-		{
-			return 0.1;
-		}
+    protected override double GetBronzeOrderTotalRatio()
+    {
+      return 0.1;
+    }
 
-		protected override double GetNormalOrderTotalRatio()
-		{
-			return 0.12;
-		}
-	}
+    protected override double GetNormalOrderTotalRatio()
+    {
+      return 0.12;
+    }
+  }
 
-	[Test]
-		public void CalculateGoldenOrderShippingCost()
-		{
-			PriceCalculator calculator =new TestingPriceCalculator();
-			Order goldenOrder =new Order();
-			goldenOrder.Total = 200;
+  [Test]
+  public void CalculateGoldenOrderShippingCost()
+  {
+    PriceCalculator calculator =new TestingPriceCalculator();
+    Order goldenOrder =new Order();
+    goldenOrder.Total = 200;
 
-			Assert.AreEqual(10, calculator.CalculateShippingCost(goldenOrder));
-		}
+    Assert.AreEqual(10, calculator.CalculateShippingCost(goldenOrder));
+  }
 
-	[Test]
-		public void CalculateBronzeOrderShippingCost()
-		{
-			PriceCalculator calculator = new TestingPriceCalculator();
-			Order bronze = new Order();
-			bronze.Total = 90;
+  [Test]
+  public void CalculateBronzeOrderShippingCost()
+  {
+    PriceCalculator calculator = new TestingPriceCalculator();
+    Order bronze = new Order();
+    bronze.Total = 90;
 
-			Assert.AreEqual(9, calculator.CalculateShippingCost(bronze));
-		}
+    Assert.AreEqual(9, calculator.CalculateShippingCost(bronze));
+  }
 
-	[Test]
-		public void CalculateNormalOrderShippingCost()
-		{
-			PriceCalculator calculator = new TestingPriceCalculator();
-			Order normal = new Order();
-			normal.Total = 50;
+  [Test]
+  public void CalculateNormalOrderShippingCost()
+  {
+    PriceCalculator calculator = new TestingPriceCalculator();
+    Order normal = new Order();
+    normal.Total = 50;
 
-			Assert.AreEqual(6, calculator.CalculateShippingCost(normal));
-		}
+    Assert.AreEqual(6, calculator.CalculateShippingCost(normal));
+  }
 }
 ``` 
 Yukarıdaki test kodlarında gördüğünüz gibi TestingPriceCalculator adından PriceCalculator’dan türeyen bir sınıf oluşturdum ve virtual metodları override ederek istediğim değerlerin dönmesini sağladım. Normalde PriceCalculator olarak test edilen yerleride bu sınıfla değiştirdiğimde test kodlarının istediğim şekilde çalıştığını görüyorum ve testleri çalıştırdığımda geçtiğini görüyorum.
