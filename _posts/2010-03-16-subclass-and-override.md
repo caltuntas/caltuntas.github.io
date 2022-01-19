@@ -3,7 +3,7 @@ layout: post
 title: "Eski Kodu Test Etmek : Subclass and Override"
 description: "Eski Kodu Test Etmek : Subclass and Override"
 date: 2010-03-16T07:00:00-07:00
-tags: patterns, unit-testing
+tags: testing
 ---
 
 Eğer sıfırdan başlamış bir projede(Green Field) başından beri çalışan şanslı insanlardan değilseniz mutlaka sizden daha önce ve şuanda şirkette olmayan birisinin yazdığı anlaşılamaz kodu değiştirmek zorunda kalmıştırsınız. Benimde başıma sık sık gelen bu tarz durumlarda insan biraz kendini Rus-Ruleti oynar konumunda bulabiliyor. Bir yandan şeytan kodu değiştirip riski göze almanızı söylerken, bir yandan içinizden gelen ses hata yapmamanız için tekrar tekrar kodu kontrol edip hata yapmadığınızdan emin olmanızı söylüyor.
