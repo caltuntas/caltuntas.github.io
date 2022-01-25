@@ -8,30 +8,30 @@ tags: refactoring
 
 Kodun okunulabilirdiğini arttıran en önemli Refactoring yöntemlerinden biride Decompose Conditional yani türkçeye çevirmeye çalışırsak Şartlı ifadeleri ayırma diyebiliriz.Küçük bir örnek üzerinde nasıl yapıldığını görürsek daha iyi anlaşılacağını umuyorum.Aşağıda daha önce uğraştığım verilen veritabanındaki tablolar için sınıf oluşturan programdan ufak bir sınıfın constructor metodunu görüyorsunuz.
 
-```
+```csharp 
 private const int USER_TABLE_ATTRIBUTE = 0;
 private TableDefs tableDefs; 
 public MDBResolver(string mdbPath)
 {
-	this._mdbPath = mdbPath;
-	DAO.DBEngineClass dbEng = new DAO.DBEngineClass();
-	DAO.Database db = dbEng.OpenDatabase(this._mdbPath,false, false, "");
-	tableDefs = db.TableDefs;
-	ArrayList tables = new ArrayList();
-	for(int tableIndex = 0; tableIndex < tableDefs.Count; tableIndex ++)
-	{
+  this._mdbPath = mdbPath;
+  DAO.DBEngineClass dbEng = new DAO.DBEngineClass();
+  DAO.Database db = dbEng.OpenDatabase(this._mdbPath,false, false, "");
+  tableDefs = db.TableDefs;
+  ArrayList tables = new ArrayList();
+  for(int tableIndex = 0; tableIndex < tableDefs.Count; tableIndex ++)
+  {
 
-		if (tableDefs[tableIndex].Attributes == USER_TABLE_ATTRIBUTE)
-		{
-			Table table ;
-			string tableName=tableDefs[tableIndex].Name; 
-			table= new Table(tableName,this.GetFields(tableDefs[tableIndex].Name));
-			tables.Add(table);
-		}
-	}
-	db.Close();
+    if (tableDefs[tableIndex].Attributes == USER_TABLE_ATTRIBUTE)
+    {
+      Table table ;
+      string tableName=tableDefs[tableIndex].Name; 
+      table= new Table(tableName,this.GetFields(tableDefs[tableIndex].Name));
+      tables.Add(table);
+    }
+  }
+  db.Close();
 
-	this._tables = (Table[])tables.ToArray(typeof(Table));
+  this._tables = (Table[])tables.ToArray(typeof(Table));
 }
 //geriye kalan metodlar........
 //....................
@@ -42,35 +42,35 @@ public MDBResolver(string mdbPath)
 Kırmızı satıra baktığımızda bir if kontrolü görüyoruz.Tablonun USER_TABLE olup olmadığını kontrol ediyor. O satırın içindeki parantezleri iyice okumadığımız zaman USER_TABLE kontrolü yaptığını anlayamıyoruz.Şimdi Refactoring yaparak kodumuzu aşağıdaki gibi değiştirelim.
 
 
-```
+```csharp 
 private const int USER_TABLE_ATTRIBUTE = 0;
 private TableDefs tableDefs;
 public MDBResolver(string mdbPath)
 {
-	this._mdbPath = mdbPath;
-	DAO.DBEngineClass dbEng = new DAO.DBEngineClass();
-	DAO.Database db = dbEng.OpenDatabase(this._mdbPath,false, false, "");
-	tableDefs = db.TableDefs;
-	ArrayList tables = new ArrayList();
-	for(int tableIndex = 0; tableIndex < this.tableDefs.Count; tableIndex ++)
-	{
+  this._mdbPath = mdbPath;
+  DAO.DBEngineClass dbEng = new DAO.DBEngineClass();
+  DAO.Database db = dbEng.OpenDatabase(this._mdbPath,false, false, "");
+  tableDefs = db.TableDefs;
+  ArrayList tables = new ArrayList();
+  for(int tableIndex = 0; tableIndex < this.tableDefs.Count; tableIndex ++)
+  {
 
-		if (isUserTable(tableIndex)) 
-		{
-			Table table ;
-			string tableName=tableDefs[tableIndex].Name; 
-			table= new Table(tableName,this.GetFields(tableDefs[tableIndex].Name));
-			tables.Add(table);
-		}
-	}
-	db.Close();
+    if (isUserTable(tableIndex)) 
+    {
+      Table table ;
+      string tableName=tableDefs[tableIndex].Name; 
+      table= new Table(tableName,this.GetFields(tableDefs[tableIndex].Name));
+      tables.Add(table);
+    }
+  }
+  db.Close();
 
-	this._tables = (Table[])tables.ToArray(typeof(Table));
+  this._tables = (Table[])tables.ToArray(typeof(Table));
 }
 
 private bool isUserTable(int tableIndex)
 {
-	return this.tableDefs[tableIndex].Attributes == USER_TABLE_ATTRIBUTE;
+  return this.tableDefs[tableIndex].Attributes == USER_TABLE_ATTRIBUTE;
 }
 
 //geriye kalan metodlar........
