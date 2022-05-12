@@ -58,8 +58,9 @@ TDD kullanarak geliştirdiğim kodun yanına bile yaklaşamaz. Ayrıca toplam
 yazılım geliştirme süreme bakıyorum neredeyse %50 oranında arttı diyebilirim.
 Ayrıca Test Driven Development size gerçek Object Oriented Programming zevkini
 yaşatıyor diyebilirim. Meşhur Design Patterns kitabının yazarı olan Eric
-Gamma’nın Test Infected yazısında belirttiği gibi bir kere bulaştımı eski kod
-yazma stilinize asla geri dönüş yapamıyorsunuz.
+Gamma’nın [Test Infected](http://junit.sourceforge.net/doc/testinfected/testing.htm)
+yazısında belirttiği gibi bir kere bulaştımı eski kod yazma stilinize asla geri
+dönüş yapamıyorsunuz.
 
 Şimdi bu kadar şeyi test yazarak nasıl yapacağınızı merak ediyor olabilirsiniz.
 Bunu görmek için kendinizin deneyip tecrübe etmesi gerekir fakat kısaca şunu
@@ -171,7 +172,7 @@ olacaktır işte o anlardan biri :)
 
 ![Result](/img/testdriven/test2.jpeg)
 
-* 4,5,6 verdiğimiz zaman bize en büyük olarak 6 bulmalı
+* ~~4,5,6 verdiğimiz zaman bize en büyük olarak 6 bulmalı~~
 * 3,7,5 verdiğimiz zamanda 7 bulmalı
 * -4,-7,-9 verdiğimiz zaman bize -4 bulmalı
 
@@ -223,8 +224,8 @@ Yapılacaklar listemizi tekrar gözden geçirip test ettiğimiz özellikleri
 çiziyoruz.Bu arada aklıma yeni testler geliyor ve onlarıda listeye eklemek
 istiyorum.
 
-* 4,5,6 verdiğimiz zaman bize en büyük olarak 6 bulmalı
-* 3,7,5 verdiğimiz zamanda 7 bulmalı
+* ~~4,5,6 verdiğimiz zaman bize en büyük olarak 6 bulmalı~~
+* ~~3,7,5 verdiğimiz zamanda 7 bulmalı~~
 * -4,-7,-9 verdiğimiz zaman bize-4 bulmalı
 * Sınıf elemanlı liste verdiğimiz zaman hata fırlatmalı
 * Null verdiğimiz zaman hata fırlatmalı
@@ -244,12 +245,12 @@ testleri tekrar başarıyla geçtiğini görüyorum ve tabi aman ne güzel deyip
 sevinmeden edemiyorum. Bu arada listeyi unutmayıp test ettiğim özelliği çizip
 yeni test senaryoları ekliyorum.
 
-* 4,5,6 verdiğimiz zaman bize en büyük olarak 6 bulmalı
-* 3,7,5 verdiğimiz zamanda 7 bulmalı
-* -4,-7,-9 verdiğimiz zaman bize-4 bulmalı
+* ~~4,5,6 verdiğimiz zaman bize en büyük olarak 6 bulmalı~~
+* ~~3,7,5 verdiğimiz zamanda 7 bulmalı~~
+* ~~-4,-7,-9 verdiğimiz zaman bize-4 bulmalı~~
 * Sınıf elemanlı liste verdiğimiz zaman hata fırlatmalı
 * Null verdiğimiz zaman hata fırlatmalı
-* -4,0,-9 verdiğimiz zaman 0 bulmalı
+* ~~-4,0,-9 verdiğimiz zaman 0 bulmalı~~
 
 Şimdi test etmek için yukarıdaki listeden 5. maddeyi seçtim ve test kodunu
 yazıyorum ve testi çalıştırıyorum..
@@ -263,12 +264,12 @@ yazıyorum ve testi çalıştırıyorum..
 
 Ve bütün testlerin geçtiğini tekrar görüyorum listeyi tekrar gözden geçirelim.
 
-* 4,5,6 verdiğimiz zaman bize en büyük olarak 6 bulmalı
-* 3,7,5 verdiğimiz zamanda 7 bulmalı
-* -4,-7,-9 verdiğimiz zaman bize-4 bulmalı
-* Sınıf elemanlı liste verdiğimiz zaman hata fırlatmalı
+* ~~4,5,6 verdiğimiz zaman bize en büyük olarak 6 bulmalı~~
+* ~~3,7,5 verdiğimiz zamanda 7 bulmalı~~
+* ~~-4,-7,-9 verdiğimiz zaman bize-4 bulmalı~~
+* ~~Sınıf elemanlı liste verdiğimiz zaman hata fırlatmalı~~
 * Null verdiğimiz zaman hata fırlatmalı
-* -4,0,-9 verdiğimiz zaman 0 bulmalı
+* ~~-4,0,-9 verdiğimiz zaman 0 bulmalı~~
 
 Yukarıdaki listeden tekrar gözüme kestirdiğim bir testi yani 4. sıradaki testi
 seçip yazmaya başlıyorum aşağıdaki gibi test kodumu yazdım.
@@ -371,12 +372,12 @@ Evet kodumuzu derledik ve bütün testleri tekrar çalıştırdık ve hepsinin
 geçtiğini görüyoruz.Listeyi tekrar gözden geçiriyoruz ve tamamladığımızı
 görüyoruz.
 
-* 4,5,6 verdiğimiz zaman bize en büyük olarak 6 bulmalı
-* 3,7,5 verdiğimiz zamanda 7 bulmalı
-* -4,-7,-9 verdiğimiz zaman bize-4 bulmalı
-* Sınıf elemanlı liste verdiğimiz zaman hata fırlatmalı
-* Null verdiğimiz zaman hata fırlatmalı
-* -4,0,-9 verdiğimiz zaman 0 bulmalı
+* ~~4,5,6 verdiğimiz zaman bize en büyük olarak 6 bulmalı~~
+* ~~3,7,5 verdiğimiz zamanda 7 bulmalı~~
+* ~~-4,-7,-9 verdiğimiz zaman bize-4 bulmalı~~
+* ~~Sınıf elemanlı liste verdiğimiz zaman hata fırlatmalı~~
+* ~~Null verdiğimiz zaman hata fırlatmalı~~
+* ~~-4,0,-9 verdiğimiz zaman 0 bulmalı~~
 
 Aslında aklıma birkaç test edilecek durum daha geliyor fakat bu kadar testin
 giriş yazısı için yeterli olduğunu düşünüyorum.Sizde yazdığınız testlerde bütün
