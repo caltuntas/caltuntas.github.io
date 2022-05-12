@@ -284,12 +284,13 @@ seçip yazmaya başlıyorum aşağıdaki gibi test kodumu yazdım.
 Ve testi çalıştırdığımda aşağıdaki gibi hata mesajı alıyorum ve testi
 geçemiyorum.
 
-
+```
 java.lang.Exception: Unexpected exception, expected java.lang.illegalargumentexception but
 was java.lang.arrayindexoutofboundsexception
 at org.junit.internal.runners.TestMethodRunner.runUnprotected(TestMethodRunner.java:91)
 at org.junit.internal.runners.BeforeAndAfterRunner.runProtected(BeforeAndAfterRunner.java:34)
 //..................
+```
 
 Bu testi geçmek için kodumuzu tekrar düzenleyip aşağıdaki gibi değiştiriyorum.
 
@@ -333,12 +334,13 @@ görüyorsunuz.
 
 ![Result](/img/testdriven/test5.jpeg)
 
-
+```
 java.lang.Exception: Unexpected exception, expected java.lang.illegalargumentexception but
 was java.lang.nullpointerexception
 at org.junit.internal.runners.TestMethodRunner.runUnprotected(TestMethodRunner.java:91)
 at org.junit.internal.runners.BeforeAndAfterRunner.runProtected(BeforeAndAfterRunner.java:34)
 //......
+```
 
 Yukarıdaki hataya bakacak olursanız JUnit bize IllegalArgumentException
 hatasını beklediğimizi fakat NullPointerException hatası fırlatıldığını
