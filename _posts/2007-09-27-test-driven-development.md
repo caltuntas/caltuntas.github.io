@@ -149,7 +149,7 @@ testimizi çalıştırıyoruz. Bunu IntelliJ IDE yardımıyla yapıyorum ve aşa
 gibi bir ekran görüyorum. Testlerin IDE’den nasıl çalıştırıldığı hakkında
 kullandığınız IDE için kolaylıkla bilgi edinebilirsiniz burada değinmeyeceğim.
 
-![Result](/img/testdriven/test1.jpg)
+![Result](/img/testdriven/test1.jpeg)
 
 Evet testi yazdık, compile etmesi için gerekli olan kodu yazdık, şimdi testi
 geçecek en basit kodu yazacağız.
@@ -169,7 +169,7 @@ aşağıdaki gibi bir ekran görüyoruz.TDD kod geliştirirken en mutlu olacağ�
 anlardan biri tüm testlerin geçip etrafı yeşil çubuklarla gördüğünüz an
 olacaktır işte o anlardan biri :) 
 
-![Result](/img/testdriven/test2.jpg)
+![Result](/img/testdriven/test2.jpeg)
 
 * 4,5,6 verdiğimiz zaman bize en büyük olarak 6 bulmalı
 * 3,7,5 verdiğimiz zamanda 7 bulmalı
@@ -217,7 +217,7 @@ Tekrar iki testi birden çalıştırdım aşağıda gözüktüğü gibi iki test
 yeşil çubuğu gördüm. (Bu arada ikide bir yeşil çubuk deyip duruyorum.Reklamdaki
 gibi Yakalayın yeşil ışığı hesaplı parlak bulaşığı gibi oldu :) )
 
-![Result](/img/testdriven/test4.jpg)
+![Result](/img/testdriven/test4.jpeg)
 
 Yapılacaklar listemizi tekrar gözden geçirip test ettiğimiz özellikleri
 çiziyoruz.Bu arada aklıma yeni testler geliyor ve onlarıda listeye eklemek
@@ -330,7 +330,7 @@ testini yazmaya başlıyorum.Ve aşağıdaki gibi test kodumu yazdım.
 Çalıştırdığında aşağıdaki ekrandaki gibi testi geçemediğini ve çıkan hatayı
 görüyorsunuz.
 
-![Result](/img/testdriven/test5.jpg)
+![Result](/img/testdriven/test5.jpeg)
 
 
 java.lang.Exception: Unexpected exception, expected java.lang.illegalargumentexception but
