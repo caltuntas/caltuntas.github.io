@@ -29,8 +29,8 @@ olması bizim nesneye yönelik yazılım geliştireceğimiz anlamına gelmez. A�
 örnek olarak prosedürel yöntem ve Dependency Inversion Principle(DIP) yöntemi
 ile tasarlanmış modelleri görebiliriz.
 
-![Inverted](../img/dependencyinversion/windowslivewriterdependencyinversionprincipledip-12e68diplayer-41.jpg) 
-![Classical](../img/dependencyinversion/windowslivewriterdependencyinversionprincipledip-12e68procedurallayers-21.jpg)
+![Classical](/img/dependencyinversion/procedurallayers-21.jpg)
+![Inverted](/img/dependencyinversion/diplayer-41.jpg) 
 
 Yazılım geliştirmede genellikle Tekrar Kullanılabilirlik ve Esneklik terimleri
 sıkça duyarız. Peki gerçekten bu terimler bize ne ifade eder? Tekrar
@@ -82,7 +82,7 @@ istenecektir. Unutmayın müşteri istekleri bitmez:) Bu işlemleri yaptığım�
 alakalı çeşitli formattaki raporları alabiliyoruz. Bu isteklere göre
 tasarladığımız sınıflarımızın UML diyagramını aşağıda görebiliriz.
 
-![DIP2](../img/dependencyinversion/windowslivewriterdependencyinversionprincipledip-12e68dependency-2.jpg)
+![DIP2](/img/dependencyinversion/dependency-2.jpg)
 
 Yukarıdaki şekilde de gördüğümüz gibi Calisan rapor forumumuz CalisanRaporFormu
 sınıfı üst seviliyeli bir işi yapan sınıftır. CalisanWordRaporu ve
@@ -224,7 +224,7 @@ sınıflar bu arayüzü uygulayarak CalisanRaporFormu sınıfımızın arayüzü
 olacak. Yeniden tasarlanmış sınıflarımızın UML diyagramı ve kodları aşağıdaki
 gibi olur.
 
-![DIP2Again](../img/dependencyinversion/windowslivewriterdependencyinversionprincipledip-12e68dipyeniden-2.jpg)
+![DIP2Again](/img/dependencyinversion/dipyeniden-2.jpg)
 
 ```
 public class CalisanPdfRaporu : ICalisanRaporu{
@@ -303,7 +303,7 @@ CalisanRaporu paketi(kütüphane,dll) yeni rapor formatı ekleme işlemleri içi
 değişmeyecektir. Sadece RaporFormarlari paketine yeni rapor formatını ekleyerek
 tekrar derleyip müşteriye vermemiz yeterli olacaktır.
 
-![DIPPackage](../img/dependencyinversion/windowslivewriterdependencyinversionprincipledip-12e68dippackage-2.jpg)
+![DIPPackage](/img/dependencyinversion/dippackage-2.jpg)
 
 Gördüğünüz gibi ufak bir örnekle de olsa önemli bir tasarım prensibinin bize
 sağladığı avantajları oldukça önemli. Yeniden kullanılabilir modüller ve
