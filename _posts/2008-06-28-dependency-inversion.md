@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Refactoring : Decompose Conditional"
-description: "Refactoring : Decompose Conditional"
-date: 2007-07-23T07:00:00-07:00
-tags: refactoring
+title: "Dependency Inversion Principle (DIP)"
+description: "Dependency Inversion Principle (DIP)"
+date: 2008-06-28T07:00:00-07:00
+tags: patterns, principles
 ---
 
 Merhaba bu makalede sizlere nesneye yönelik yazılım tasarımının temel
