@@ -441,7 +441,7 @@ kapatan metodun çağırılıp çağrılmadığını da bu teknikle stub içinde
 test sırasında kontrol ettik.Bağlantı kapatma metodu çağırılmışmı onu da bu
 teknikle stub içinde saklatıp test sırasında kontrol ettik.
 
-## El ile Yazılmış Mock Nesneler İle Test Edilmesi
+## El ile Yazılmış Mock Nesneler ile Test Edilmesi
 
 Şimdi aynı testleri Mock Objects tekniği kullanarak test edelim. Öncelikle Mock
 Objects nedir kısaca anlatalım. Mock nesneler test sırasında aynı Stublar gibi
@@ -540,7 +540,7 @@ en sonunda bunun mock objenin kendi KontrolEt metodu ile kontrol ettik.Aslında
 Mock Objects Frameworklerin yaptığıda bu sınıfları çalışma anında bizim kod
 yazmamıza gerek kalmadan otomatik olarak oluşturmak.
 
-## Framework Kullanılarak Oluşturulan Mock Nesneler İle Test
+## Framework Kullanılarak Oluşturulan Mock Nesneler ile Test
 
 En sona kaldı fakat kendi adıma en çok kullandığım yöntem olan Mock object
 framework ile kullanarak aynı testi tekrar yazıyoruz.Bu arada birsürü bu tarz
