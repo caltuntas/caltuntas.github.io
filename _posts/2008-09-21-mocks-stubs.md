@@ -14,8 +14,8 @@ tags: general
   * [Single Responsibility Prensibinin Uygulanması](#single-responsibility-prensibinin-uygulanması)
   * [Dependency Inversion Prensibinin Uygulanması](#dependency-inversion-prensibinin-uygulanması)
   * [Stub Nesneler ile Test Edilmesi](#stub-nesneler-ile-test-edilmesi)
-  * [El ile Yazılmış Mock Nesneler İle Test Edilmesi](#el-ile-yazılmış-mock-nesneler-ile-test-edilmesi)
-  * [Framework Kullanılarak Oluşturulan Mock Nesneler İle Test](#framework-kullanılarak-oluşturulan-mock-nesneler-ile-test)
+  * [El ile Yazılmış Mock Nesneler ile Test Edilmesi](#el-ile-yazılmış-mock-nesneler-ile-test-edilmesi)
+  * [Framework Kullanılarak Oluşturulan Mock Nesneler ile Test](#framework-kullanılarak-oluşturulan-mock-nesneler-ile-test)
 
 ## Giriş
 Başlık ne alaka demeyin Test Driven Development’da Mock ve Stub nesnelerin adı
