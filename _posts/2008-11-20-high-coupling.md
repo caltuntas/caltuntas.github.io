@@ -6,7 +6,7 @@ date: 2008-11-20T07:00:00-07:00
 tags: principles
 ---
 
-![domino1](../img/highcoupling/domino1_3.jpg)
+![domino1](/img/highcoupling/domino1_3.jpg)
 
 Bu yazımızda yazılım geliştirirken karşımıza çıkan en büyük problemlerden biri
 olan bağımlılık (Dependency,Coupling) konularına değineceğim. Neden az olanı
