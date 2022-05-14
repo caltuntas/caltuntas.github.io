@@ -29,8 +29,9 @@ ne kadar fazla ise domino taşı gibi herhangi birinde meydana çıkan
 hataların,değişikliklerin bağımlı olan diğer sınıfları etkileme olasılığı o
 kadar artıyor.
 
-Üstadlardan Robert Martin amcamızın internet üzerinde dinlediğim The Principles
-Of Agile Design konferansında nesneye yönelik tasarım(Object Oriented Design)
+Üstadlardan Robert Martin amcamızın internet üzerinde dinlediğim [The Principles
+Of Agile Design](https://www.infoq.com/presentations/principles-agile-oo-design/) 
+konferansında nesneye yönelik tasarım(Object Oriented Design)
 nedir diye izleyicilere bir soru yöneltiyordu. İzleyiciler “Gerçek dünyayı
 modelleme”,”Kavramların ayrılması” .. gibi değişik cevaplar verdi. Fakat Robert
 Martin kısa ve öz olarak nesneye yönelik tasarımı şu şekilde özetledi
