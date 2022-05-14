@@ -8,14 +8,14 @@ tags: general
 
 İçerik
 
-  * [Giriş](##Giriş)
-  * [Test Etmesi Zor Olan Kodlar](##Test-Edilmesi-Zor-Olan-Kodlar)
-  * [Senaryo : Mail Raporu Oluşturma](##Senaryo-:-Mail-Raporu-Oluşturma)
-  * [Single Responsibility Prensibinin Uygulanması](##Single-Responsibility-Prensibinin-Uygulanması)
-  * [Dependency Inversion Prensibinin Uygulanması](##Dependency-Inversion-Prensibinin-Uygulanması)
-  * [Stub Nesneler ile Test Edilmesi](##Stub-Nesneler-ile-Test-Edilmesi)
-  * [El ile Yazılmış Mock Nesneler İle Test Edilmesi](##El-ile-Yazılmış-Mock-Nesneler-İle-Test-Edilmesi)
-  * [Framework Kullanılarak Oluşturulan Mock Nesneler İle Test](##Framework-Kullanılarak-Oluşturulan-Mock-Nesneler-İle-Test)
+  * [Giriş](#giriş)
+  * [Test Etmesi Zor Olan Kodlar](#test-edilmesi-zor-olan-kodlar)
+  * [Senaryo : Mail Raporu Oluşturma](#senaryo-:-mail-raporu-oluşturma)
+  * [Single Responsibility Prensibinin Uygulanması](#single-responsibility-prensibinin-uygulanması)
+  * [Dependency Inversion Prensibinin Uygulanması](#dependency-inversion-prensibinin-uygulanması)
+  * [Stub Nesneler ile Test Edilmesi](#stub-nesneler-ile-test-edilmesi)
+  * [El ile Yazılmış Mock Nesneler İle Test Edilmesi](#el-ile-yazılmış-mock-nesneler-ile-test-edilmesi)
+  * [Framework Kullanılarak Oluşturulan Mock Nesneler İle Test](#framework-kullanılarak-oluşturulan-mock-nesneler-ile-test)
 
 ## Giriş
 Başlık ne alaka demeyin Test Driven Development’da Mock ve Stub nesnelerin adı
