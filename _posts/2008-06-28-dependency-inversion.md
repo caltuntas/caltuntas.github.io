@@ -1,4 +1,4 @@
----
+--
 layout: post
 title: "Dependency Inversion Principle (DIP)"
 description: "Dependency Inversion Principle (DIP)"
@@ -13,16 +13,16 @@ buna bağımlılığın ters çevrilmesi diyebiliriz.
 
 Klasik prosedürel programlamada stilinde geliştirilen yazılımlarda genellikle
 üst seviyeli modüller, sınıflar vb.. alt seviyeli modüllere bağımlıdır. Bunun
-en önemli dezavantajlarından biriside alt seviyeli modüller ya da sınıflar daha
+en önemli dezavantajlarından birisi de alt seviyeli modüller ya da sınıflar daha
 sık değişebilir ve de bu değişimden de üst seviyeli modüller etkilenir. Bu
 değişimin sonucunda üst seviyeli modüllerde kod içerisinde değişiklik yapmak ve
-zincirmele olarak tüm modülleri derleyip yayınlamak gerekir. Sonuçta ufak
+zincirleme olarak tüm modülleri derleyip yayınlamak gerekir. Sonuçta ufak
 değişikliklerden bile en üst seviyeye kadar etkilenebilen yönetilmesi zor bir
-model oluşur. Bu tarz modeller modüler olarak tekrar kullanılabilir gözüksede
+model oluşur. Bu tarz modeller modüler olarak tekrar kullanılabilir gözükse de
 üst seviyeden alt seviyeye kadar bağımlılık zinciri olduğu için tekrar
 kullanmak istediğimiz modülle birlikte diğer modülleri de dahil etmemiz
 gerekir.Bu da bize gerçek anlamda bir tekrar kullanılabilirlik sağlamaz çünkü
-gerçek anlamda birbirinden soyutlanmış modüller yoktur. Malesef günümüzde
+gerçek anlamda birbirinden soyutlanmış modüller yoktur. Maalesef günümüzde
 modern birçok nesneye yönelik programlama dilinde dahi bu şekilde yazılım
 geliştirilmektedir çünkü kullandığımız programlama dilinin nesneye yönelik
 olması bizim nesneye yönelik yazılım geliştireceğimiz anlamına gelmez. Aşağıda
@@ -46,8 +46,8 @@ seviyeli katmanımız alt seviyeli katmana bağımlı diyebiliriz. Tekrar
 kullanılabilirlik terimine gelince; ilk olarak bir sınıfın yazılıp projenin
 çeşitli yerlerinde kullanılması aklımıza gelir fakat gerçek anlamda tekrar
 kullanım yazdığımız bir kod, üst seviyeli bir kütüphane diğer projelerde koduna
-dokunulmadan kullanılabiliyosa bunu tekrar kullanılabilir modül ya da yazılım
-olarak tanımlayabiliriz. Bunuda iyi tasarlanmamış yazılımlarda sınıfların
+dokunulmadan kullanılabiliyorsa bunu tekrar kullanılabilir modül ya da yazılım
+olarak tanımlayabiliriz. Bunu da iyi tasarlanmamış yazılımlarda sınıfların
 birbirine olan bağımlılığı yüzünden genellikle yapamayız.
 
 İşte bu noktada daha esnek ve yeniden kullanılabilir modüller geliştirebilmek
@@ -64,7 +64,7 @@ Bunu da şekilde gördüğümüz gibi üst seviyeli bir modül kendi arayüzün�
 tanımlayarak bu arayüzü kullanır. Bu arayüz abstract ya da interface sınıflar
 olabilir. Ardından alt seviyeli modüller üst seviyeli modülün arayüzünü
 uygular. Böylece üst seviyeli modülümüz alt seviyeli detaylarla ilgilenmeden
-onlardanki değişimlerden etkilenmeden kullanılabilir. Üst seviyeli modülümüz
+onlardaki değişimlerden etkilenmeden kullanılabilir. Üst seviyeli modülümüz
 bir arayüze bağımlı olduğu için ve arayüzde genellikle değişmeyeceği için
 arayüzü gerçekleyen (implemention) sınıflar değişse dahi aynı kalacaktır.
 Günümüzdeki frameworklerin tasarlanmasında kullanılan temel prensiplerden biri
@@ -73,10 +73,10 @@ budur.
 Bu kadar laf kalabalığından sonra biraz sıkılmış olabilirsiniz.Ufak bir örnekle
 sıkıntınızı alıp işe koyulalım:) Örnek senaryomuz şöyle olsun:
 
-Geliştirdiğimiz bir yazılımda işyerimizle alakalı kayıtları işliyoruz.
+Geliştirdiğimiz bir yazılımda iş yerimizle alakalı kayıtları işliyoruz.
 Programımızın işyerindeki çalışanlara ait çeşitli formatlarda rapor sunması
 gerekiyor. Şuanda bizden istenen excel ve word formatından raporları sunması.
-Fakat ileride değişik türden formatta raporlarıda kolaylıkla sunması kesinlikle
+Fakat ileride değişik türden formatta raporları da kolaylıkla sunması kesinlikle
 istenecektir. Unutmayın müşteri istekleri bitmez:) Bu işlemleri yaptığımız bir
 çalışan raporları sayfamız var. Bu sayfadan herhangi bir çalışanı seçip onla
 alakalı çeşitli formattaki raporları alabiliyoruz. Bu isteklere göre
@@ -84,14 +84,14 @@ tasarladığımız sınıflarımızın UML diyagramını aşağıda görebiliriz
 
 ![DIP2](/img/dependencyinversion/dependency-2.jpg)
 
-Yukarıdaki şekilde de gördüğümüz gibi Calisan rapor forumumuz CalisanRaporFormu
-sınıfı üst seviliyeli bir işi yapan sınıftır. CalisanWordRaporu ve
-CalisanExcelRaporu ise bu üst seviyeli işlemin nasıl yapılacağını değişik
+Yukarıdaki şekilde de gördüğümüz gibi Calisan rapor forumumuz **CalisanRaporFormu**
+sınıfı üst seviyeli bir işi yapan sınıftır. **CalisanWordRaporu** ve
+**CalisanExcelRaporu** ise bu üst seviyeli işlemin nasıl yapılacağını değişik
 şekillerde uygulayan alt seviyeli detaylarla ilgilenen sınıflardır.
-CalisanRaporFormu bu sınıfları direkt olarak kullanır. Yani CalisanRaporFormu
+**CalisanRaporFormu** bu sınıfları direkt olarak kullanır. Yani **CalisanRaporFormu**
 sınıfı alt seviyeli sınıflara direk olarak bağımlıdır onlarda meydana gelecek
 değişimlerden etkilenecek ve tekrar derlenmek zorunda kalacaktır. Bu şekilde
-tasarlanmış yazılımlığımızın kodları kabaca aşağıdaki gibi olur. Kodlara
+tasarlanmış yazılımımızın kodları kabaca aşağıdaki gibi olur. Kodlara
 baktığımızda ilk olarak if else yapısı dikkatinizi çekmiştir. Genellikle
 kodunuzda buna benzer kısımları görürseniz büyük ihtimalle refactoring(yeniden
 biçimlendirme) yapmanızda fayda vardır. İyi şekilde tasarlanmış yazılımlarda
@@ -161,18 +161,18 @@ public class CalisanExcelRaporu {
 }
 ```
 
-Yukarıdaki kodlar senoryamuzdaki bizden istenenleri gerçekleştiriyor.
-Müşterimide yazılımı teslim ettik herşey gayet güzel çalışıyor. Fakat beklenen
+Yukarıdaki kodlar senaryomuzdaki bizden istenenleri gerçekleştiriyor.
+Müşterimize yazılımı teslim ettik her şey gayet güzel çalışıyor. Fakat beklenen
 kara gün geldi müşteri yeni isteklerle karşımıza çıktı:) Bunlardan senaryomuzda
-biraz da olsa bahsetmiştik.Bunlardan birtanesi senaryomuzda bizden istenen
+biraz da olsa bahsetmiştik.Bunlardan bir tanesi senaryomuzda bizden istenen
 değişik formatta rapor çıktısı sunmasıydı ve müşteri bizden Pdf formatındaki
 raporları da sisteme eklememizi söyledi. Fakat bundan sonra yapılacak
 değişimler için önümüze birkaç problem çıkıyor. Yeni bir çalışan rapor
 formatını sisteme nasıl ekleriz? Bunun için eski kodlarımızın içini didiklemeye
-başladık ve bu işlemin CalisanRaporFormu sınıfı içinde yapıldığını gördük.
+başladık ve bu işlemin **CalisanRaporFormu** sınıfı içinde yapıldığını gördük.
 Hemen kolları sıvadık başladık yeni rapor formatını sistemimize eklemeye.Sonra
 bütün kodlarımızı tekrar derleyip yeni halini müşterimize gönderdik.Değişin
-CalisanRaporFormu sınıfımız ve yeni eklenen Pdf raporu sınıfımız aşağıdaki
+**CalisanRaporFormu** sınıfımız ve yeni eklenen Pdf raporu sınıfımız aşağıdaki
 şekilde olacaktır.
 
 ```
@@ -217,10 +217,10 @@ if-else cümleleri kodumuzu istila edecek bu da yazılımın yönetimini,
 yayınlanmasını, değişiklik eklemeyi ve yeniden kullanımız zorlaştıracak.
 Sistemimizi birde Dependency Inversion prensibine göre baştan tasarlayalım ve
 ardından bize sağladığı avantajlara bakalalım. Bunu yapmak için baştada
-bahsettiğimiz gibi bağımlılığı ters çevireceğiz. Yani CalisanRaporFormu
+bahsettiğimiz gibi bağımlılığı ters çevireceğiz. Yani **CalisanRaporFormu**
 sınıfımız alt raporlama sınıflarına bağımlı olmayacak kendi arayüzünü
 tanımlayacak ve yapacağı işlemlerde onu kullanacak. Ardından alt seviye
-sınıflar bu arayüzü uygulayarak CalisanRaporFormu sınıfımızın arayüzüne bağımlı
+sınıflar bu arayüzü uygulayarak **CalisanRaporFormu** sınıfımızın arayüzüne bağımlı
 olacak. Yeniden tasarlanmış sınıflarımızın UML diyagramı ve kodları aşağıdaki
 gibi olur.
 
@@ -275,29 +275,29 @@ public class CalisanRaporFormu {
 ```
 
 Yukarıda yeni şekilde tasarladığımız kodlarda da gördüğümüz gibi artık üst
-seviyeli bir sınıfımız olan CalisanRaporFormu sınıfımız alt seviyeli
+seviyeli bir sınıfımız olan **CalisanRaporFormu** sınıfımız alt seviyeli
 sınıflardan olan CalisanPdfRaporu vb.. sınıflara bağımlı değildir, sadece kendi
 arayüzünü tanımlamış ve işlemlerinde bu arayüzü kullanmıştır. Alt seviyeli
-sınıflar ise CalisanRaporFormu arayüzü olan ICalisanRaporu arayüzünü
-CalisanRaporFormu sınıfına, onun kullandığı arayüze bağımlı olmuşlardır. Bu
+sınıflar ise **CalisanRaporFormu** arayüzü olan ICalisanRaporu arayüzünü
+**CalisanRaporFormu** sınıfına, onun kullandığı arayüze bağımlı olmuşlardır. Bu
 şekilde bağımlılığı ters çevirmiş olduk.Yukarıdaki kodları gördüğünüzde
-aklınıza CalisanRaporFormu sınıfının hangi rapor formatı ile çalışacağını
-nerden bileceği gelebilir. Bunu gördüğünüz gibi CalisanRaporFormu yapıcısında
+aklınıza **CalisanRaporFormu** sınıfının hangi rapor formatı ile çalışacağını
+nerden bileceği gelebilir. Bunu gördüğünüz gibi **CalisanRaporFormu** yapıcısında
 hangi rapor formatı ile çalıştığını alıyor. Genelde bu tür işlemler herbiri
 ayrı bir makale konusu olan Factory Tasarım Kalıbı ve Inversion Of Control
 (IoC) denilen tekniklerle yapılır. Şuanda kafanız o kısımda karışmasın diye
-deyinmek istemedim ayrı bir makalede bu konulara deyinmeye çalışacağım. Yeni
+deyinmek istemedim ayrı bir makalede bu konulara değinmeye çalışacağım. Yeni
 şekilde tasarlanan kodun avantajlarına bakarsak gördüğümüz gibi
-CalisanRaporFormu artık kendi arayüzü uygulayan hangi tür rapor olursa olsun
+**CalisanRaporFormu** artık kendi arayüzü uygulayan hangi tür rapor olursa olsun
 kod içinde hiçbir değişiklik yapmadan kullanabileceğiz. Tabi kodun içindeki
 if-else ifadeleri kalktığı için kodunda sadeleştiğini görüyoruz. Ayrıca bundan
-sonraki yeni rapor türleri için CalisanRaporFormu sınıfını tekrar derlemek
+sonraki yeni rapor türleri için **CalisanRaporFormu** sınıfını tekrar derlemek
 zorunda değiliz çünkü bu sınıf ICalisanRaporu arayüzünü kullanıyor ve bu arayüz
-değişmedikçe tekrar dermemize gerek kalmayacak. Müşteriye sadece yeni
+değişmedikçe tekrar derlememize gerek kalmayacak. Müşteriye sadece yeni
 eklediğimiz rapor formatı sınıflarını vermemiz yeterli olacaktır. Artık
-CalisanRaporFormu bizim için ayrı bir modül oldu. Değişik projelerde onun
+**CalisanRaporFormu** bizim için ayrı bir modül oldu. Değişik projelerde onun
 arayüzünü uygulayan herhangi bir sınıfla rahatlıkla çalışabilir. Tabi onu
-kütüphane yapıp aynı namespace içine ICalisanRaporu arayüzünüde eklemeyi
+kütüphane yapıp aynı namespace içine ICalisanRaporu arayüzünü de eklemeyi
 unutmayalım. Paket yapımızda aşağıdaki gibi olur. Artık müşteride bulunan
 CalisanRaporu paketi(kütüphane,dll) yeni rapor formatı ekleme işlemleri için
 değişmeyecektir. Sadece RaporFormarlari paketine yeni rapor formatını ekleyerek
@@ -307,6 +307,6 @@ tekrar derleyip müşteriye vermemiz yeterli olacaktır.
 
 Gördüğünüz gibi ufak bir örnekle de olsa önemli bir tasarım prensibinin bize
 sağladığı avantajları oldukça önemli. Yeniden kullanılabilir modüller ve
-framework’ler tasarlamanın temel prensiplerinden biri olan bu tasarım prenbini
+framework’ler tasarlamanın temel prensiplerinden biri olan bu tasarım prensibi
 ufak bir örnekler inceledik umarım sizler için faydalı olmuştur. Tekrar
 görüşmek dileğiyle…
