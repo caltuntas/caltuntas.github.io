@@ -15,7 +15,7 @@ Bu tarz bir durumda kodu test altına almanın her zaman kolay olmadığını yu
 Aşağıdaki gibi daha önceden yazılmış bizim için kritik önem arzeden ve değiştirmemiz gereken bir kodumuz olduğunu düşünün.
 
 
-``` 
+```cs
 public class PriceCalculator
 {
   private Database database;
@@ -61,7 +61,7 @@ Yukarıdaki gördüğünüz sınıfın bizim için verilen siperişin ulaştırm
 
 Burada kodun çok basit olduğunu unutun ve gerçekten çok daha karmaşık hesaplamaların olduğu bir metodu değiştirmek istediğinizi düşünün. Bunu yapmadan önce dediğim gibi bu konu test altına almak oldukça güvenilir yoldan ilerlemenizi sağlayacaktır. Bu yüzden bende öyle yapıp yukarıdaki kod için aşağıdaki gibi testimi yazmaya başlıyorum.
 
-``` 
+```cs
 [TestFixture]
 public class PriceCalculatorTest
 {
@@ -99,7 +99,7 @@ public class PriceCalculatorTest
 
 Yukarıdaki testlerde 3 durumu da test içerisine alacak test kodunu yazdım. Eğer sipariş tutarı 200 ise nakliye oranının %5 olduğunu düşünüp sonucun 10 olması gerektiğini söylüyorum. Eğer tutarı 90 olan bronz sipariş nakliye oranının %10 ise sonucun 9 olması gerektiğini yazıyorum. Ve son olarak da tutar 50 için nakliye oranı %14 ise sonucun 7 olduğunu test eden kodu yazıyorum. Testleri çalıştırdığımda aşağıdaki gibi bir Unit Test hatası karşıma çıkıyor
 
-``` 
+```
 PriceCalculatorTest.CalculateNormalOrderShippingCost : …AssertionException: Expected: 7 But was: 950.0d
 ``` 
 
@@ -109,7 +109,7 @@ Bizim burada kontrol etmek istediğimiz aslında kodun biraz kötü yazılmış 
 
 Subclass and Override tekniğini basit olarak test için kontrol etmeniz gereken metodu override ederek test ortamında istediğiniz değerleri dönmesini sağlamak oldukça basit ve faydalı bir yöntem. Bu tekniği kullanarak PriceCalculator sınıfımı aşağıdaki gibi değiştiriyorum.
 
-``` 
+```cs
 public class PriceCalculator
 {
   //Diğer kodlar.....
@@ -134,7 +134,7 @@ public class PriceCalculator
 Gördüğünüz gibi private olaran metodlar protected virtual olarak değiştirdim. Böylece başka bir sınıfı bu sınıftan türetip bu metodları override edebilirim ve istediğim değerleri döndürebilirim. Bu da testlerimde bu metodların database’e çağrı yapmadan benim istediğim değerleri döndürmemi sağlar kısacası kontrol tekrar testlere geçer.Bu arada eğer yukarıdaki kod bir Java kodu olsaydı
 Java’nın sevdiğim bir özelliği olan metodlar default olarak virtual olduğu için sadece protected yapmam yeterli olacaktı.Test kodlarımı da aşağıdaki gibi değiştiriyorum.
 
-``` 
+```cs
 [TestFixture]
 public class PriceCalculatorTest
 {

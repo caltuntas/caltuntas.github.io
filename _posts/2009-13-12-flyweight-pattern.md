@@ -13,7 +13,7 @@ Geçenlerde çalıştığım bir projede sürüm öncesi geliştirdiğimiz yazı
 Profiler sonuçlarını dikkatlice incelediğimizde bir sınıfın nesnenin diğerlerinden çok daha fazla oluşturulduğunu ve bellekte en çok yeri bu nesnenin yer kapladığını gördük. Bu nesnenin adına Key diyelim. Kodun aşağıdaki gibi olduğunu düşünün. Key sınıfı nesnelerimize kategorilerini belirtmek için atanan bir sınıf ve aldığı değerler Golden, Silver, Bronz (Altın,Gümüş, Bronz) şeklindedir. Ve ilk oluşturulduktan sonra dikkat ederseniz değerleri değiştirilemezler. Yani Immutable bir nesnedir.
 
 
-```
+```java
 public class Key {
   private int id;
   private String code;
@@ -120,7 +120,7 @@ Yani yukarıdaki örneği düşünecek olursak,BusinessObject nesnemiz 500.000 d
 
 Öncelikle yukarıdaki koda biraz Refactoring yapalım. İlk olarak  Processor sınıfı içerisinde nesneleri oluşturan kodu bu asıl amacı bu işi yapmak olan bir Factory sınıfına taşıyalım. Yani KeyFactory adında bir sınıfa Key nesneleri oluşturulması sorumluluğunu yükleyelim.
 
-```
+```java
 public class KeyFactory {
   private static Map keyMap = new HashMap();
 

@@ -9,7 +9,7 @@ tags: javascript
 Javascript kodlarına bakarsanız etrafta bolca string göreceğinizden eminim. En azından benim eski Javascript kodlarım böyleydi.[Daha önceden](https://www.cihataltuntas.com/2008/08/06/replace-magic-number.html) Java, C# gibi static typed dillerde bunların önüne nasıl geçebileceğimizden bahsetmiştik. Javascript dilinde Constant kavramı olmasa da Object Literal notasyonu kullanarak sabit değişkenler tanımlayabiliriz. Aşağıdaki masum Javascript fonksiyonlarını görüyorsunuz.
 
 
-```
+```javascript
 function createStatusImage(movie) {
     var img = document.createElement("img");
     if (movie.avaliable)
@@ -27,7 +27,7 @@ function makePlanned(img) {
 
 Yukarıdaki kodlar ne kadar masum görünse de, her tarafta string tanımı olduğu için kodda eğer resim yani “Content/Images” dizinini değiştirmek istediğinizde kodun 3 yerinde bu değişikliği yapmak zorundasınız. Bunun yerine Object Litaral ile bir konfigürasyon nesnesi oluşturup kodumuzu aşağıdaki gibi refactor edersek daha okunaklı ve değiştirmesi daha kolay olacaktır.
 
-``` 
+```javascript
 var ImageConfig = {
     IMAGE_PATH: '/Content/Images/',
     WATCHED_IMAGE: 'watched.gif',

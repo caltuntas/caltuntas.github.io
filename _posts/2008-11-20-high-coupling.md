@@ -44,7 +44,7 @@ anlamak çok kolay. Bunun için JDepend,NDepend gibi birçok gelişmiş olsada b
 olarak bağımlılığı ölçmek için iki yöntem kullanabilirsiniz. Mesela aşağıdaki
 gibi bir koda bakalım ve nelere bağımlı gözden geçirelim.
 
-```
+```cs
 private void tbiMesajiGonder_Click(object sender, System.EventArgs e)
 {
   Database.VeriTabani clsDatabase=new SMSNET.Database.VeriTabani();
@@ -131,7 +131,7 @@ Yukarıdaki kodda modüller, sınıflar arasındaki bağımlılığı gördük. 
 bağımlılık bu kadarla bitmiyor açıkcası. Birazda daha sinsi olan
 metodlar,alanlar üzerindeki bağımlılığa bakalım. Aşağıdaki kodu inceleyelim
 
-```
+```cs
 public class Field
 {
   private string name;

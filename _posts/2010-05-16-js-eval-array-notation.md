@@ -12,7 +12,7 @@ Javascript programlama dili içerisinde eval fonksiyonu genellikle dinamik kod �
 Bunun dışında Javascript kodlarına baktığımda içerisinde eval gördüğüm yerlerin çoğunda kullanım yanlışlığı var ve bunun sebebi Javascript dilini iyi bilmemekten kaynaklanıyor. Eval’in yanlış kullanımına dair sıkça gördüğüm durumlardan bir tanesi şöyle oluyor.Örneğin bir nesnenin bir özelliğinde formu kayıt ederken çalıştırılacak fonksiyon ismi tutuluyor.
 
 
-```
+```javascript
 var form ={
     name :'Save',
     url : '/Form/Save',
@@ -28,7 +28,7 @@ Yukarıdaki kodda formu kayıt ederken nesnenin özelliği olan hangi validasyon
 
 Peki yukarıdaki kodu eval kullanmadan nasıl yazabilirdik? Çok basit Javascript dilinde aşağıdaki iki ifade aynı şeyi yapar.
 
-```
+```javascript
 nesne.method();
 nesne['method']();
 ```
@@ -36,7 +36,7 @@ nesne['method']();
 Javascript içerisindeki fonksiyonlara yada nesnenin özelliklerine “.(dot)” notasyonu dışında “[](array)” notasyonu ile de ulaşabilirsiniz. Bunun dışında bilmemiz gereken birşey daha var; tanımlanan bütün fonksiyonlar global window nesnesine aitdir.Yani aşağıdaki 3 satır kod da aynı şeyi yapar
 
 
-```
+```javascript
 function taklaAt(){
     //takla at...
 }
@@ -49,7 +49,7 @@ window[taklaAt]();
 
 Bu bilgileri de öğrendikten sonra ilk kodumuzu aşağıdaki gibi yazabiliriz.
 
-```
+```javascript
 var form ={
     name :'Save',
     url : '/Form/Save',

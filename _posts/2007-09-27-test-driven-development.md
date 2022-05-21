@@ -117,7 +117,7 @@ bir test metodu oluşturuyoruz. Dikkat edin daha tek bir satır gerçek kod
 yazmadan bu test sınıfını ve test metodlarını oluşturuyoruz burası önemli. Bunu
 neden böyle yaptığımıza daha sonra değineceğim.
 
-```
+```java
 public class EnBuyukBulucuTest {
 
     @Test
@@ -137,7 +137,7 @@ böyle bir sınıf olmadığını söyleyecek. Hemen aşağıdaki gibi EnBuyukBu
 adında bir sınıf oluşturuyoruz ve içine boş bir static metod olarak enBuyukSayi
 metodunu yazıyoruz.
 
-```
+```java
 public class EnBuyukBulucu {
     public static int enBuyukSayi(int[] sayilar) {
         return 0;
@@ -155,7 +155,7 @@ kullandığınız IDE için kolaylıkla bilgi edinebilirsiniz burada değinmeyec
 Evet testi yazdık, compile etmesi için gerekli olan kodu yazdık, şimdi testi
 geçecek en basit kodu yazacağız.
 
-```
+```java
 public class EnBuyukBulucu {
     public static int enBuyukSayi(int[] sayilar) {
         return 6;
@@ -181,7 +181,7 @@ testlerin isimlerini test ettiği özelliğe göre değiştiriyorum. İlk testin
 BuyukSondaOldugundaEnBuyukBul olarak değiştirdim.Sıra listedeki ikinci
 testimizi yazmaya geldi. Aşağıdaki gibi testi yazıyoruz.
 
-```
+```java
    @Test
     public void BuyukOrtadaOldugundaEnBuyukBul(){
         assertEquals(7,EnBuyukBulucu.enBuyukSayi(new int[]{3,7,5}));
@@ -201,7 +201,7 @@ Artık burada return 6 gibi bir üçkağıt yapamadığımız için biraz gerçe
 yazmanın vakti geldi. Testleri geçmek için tekrar iş başına koyuluyoruz. Bu iki
 testi geçmek için benim aklıma ilk gelen en basit kodu aşağıdaki gibi yazdım.
 
-```
+```java
 public class EnBuyukBulucu {
     public static int enBuyukSayi(int[] sayilar) {
         int enBuyuk = sayilar[0];
@@ -233,7 +233,7 @@ istiyorum.
 Evet listedeki hoşuma giden diğer test edilecek olan 3. özelliği seçiyorum ve
 tekrar test yazmaya başlıyorum.
 
-```
+```java
 @Test
 public void NegatifSayilarArasindanEnBuyukBul(){
    assertEquals(-4,EnBuyukBulucu.enBuyukSayi(new int[]{-4,-7,-9}));
@@ -255,7 +255,7 @@ yeni test senaryoları ekliyorum.
 Şimdi test etmek için yukarıdaki listeden 5. maddeyi seçtim ve test kodunu
 yazıyorum ve testi çalıştırıyorum..
 
-```
+```java
 @Test
     public void NegatifSayilarVeSifirArasindanEnBuyukBul(){
         assertEquals(0,EnBuyukBulucu.enBuyukSayi(new int[]{-4,0,-9}));
@@ -274,7 +274,7 @@ Ve bütün testlerin geçtiğini tekrar görüyorum listeyi tekrar gözden geçi
 Yukarıdaki listeden tekrar gözüme kestirdiğim bir testi yani 4. sıradaki testi
 seçip yazmaya başlıyorum aşağıdaki gibi test kodumu yazdım.
 
-```
+```java
 @Test(expected = IllegalArgumentException.class)
     public void BosSayiListesindeHataFirlat(){
         assertEquals(0,EnBuyukBulucu.enBuyukSayi(new int[]{}));
@@ -294,7 +294,7 @@ at org.junit.internal.runners.BeforeAndAfterRunner.runProtected(BeforeAndAfterRu
 
 Bu testi geçmek için kodumuzu tekrar düzenleyip aşağıdaki gibi değiştiriyorum.
 
-```
+```java
 public class EnBuyukBulucu {
     public static int enBuyukSayi(int[] sayilar) {
         if(sayilar.length==0)
@@ -322,7 +322,7 @@ tekrar görüyorum. Listeme tekrar döndüm test ettiğim özelliğe çizik atı
 Kalan maddelerden 5. sırada olan Null içeren maddeyi seçiyorum ve tekrar
 testini yazmaya başlıyorum.Ve aşağıdaki gibi test kodumu yazdım.
 
-```
+```java
 @Test(expected = IllegalArgumentException.class)
     public void NullListedeHataFirlat(){
         assertEquals(0,EnBuyukBulucu.enBuyukSayi(null));
@@ -354,7 +354,7 @@ NullPointerException mı?O yüzden hata fırlattığımızda anlamlı programcı
 sorunun çözümüne yardımcı hatalar fırlatmaya özen göstermeliyiz. Lafı fazla
 uzatmadan bu testide geçecek kodu aşağıdaki gibi yazıyoruz.
 
-```
+```java
 public class EnBuyukBulucu {
     public static int enBuyukSayi(int[] sayilar) {
         if(sayilar==null || sayilar.length==0)

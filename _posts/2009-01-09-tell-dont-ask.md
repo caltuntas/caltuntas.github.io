@@ -75,7 +75,7 @@ toplayacağı müşterilerin listesi elinde alıp kapı kapı dolaşıyor ve üc
 alıyor. Ardından topladığı hasılatı patronuna teslim ediyor.İlk olarak
 programımızı şu şekilde yazalım.
 
-```
+```cs
 public class Cuzdan {
   private double para;
 
@@ -187,7 +187,7 @@ yazalım. Bakalım bir sınıfdaki değişiklik yüzünden kaç sınıfı deği�
 zorunda kalacağız.Ana sınıf değişmediği için onu yazmıyorum. Diğer değişen
 sınıfları yeni halleri ile aşağıya yazıyorum.
 
-```
+```cs
 public class Gazeteci {
   private double hasilat =0;
   public void odemeAl(Musteri musteri,double miktar){
@@ -256,7 +256,7 @@ yüzlerce sınıfı değiştirmek,hatalarını düzeltmek,test etmek zorunda
 kalacaksınız. Şimdi bu kodu Tell Don’t ask prensibine uygun olarak aşağıdaki
 gibi yazalım.
 
-```
+```cs
 public class Cuzdan {
   private double para;
 
@@ -316,7 +316,7 @@ sınıf yada Anemic Domain Model değil, onu nasıl işleyeceğini bilen bir sı
 Şimdi bu yapıda yazılmış bir kod üzerinde Cuzdan yerine paramızı kredi kartı
 üzerinden ödemek için değişmesi gereken sınıfları tekrar yazalım.
 
-```
+```cs
 public class Musteri {
   private String adi;
   private KrediKarti krediKarti;

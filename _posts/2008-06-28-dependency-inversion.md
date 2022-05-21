@@ -100,7 +100,7 @@ da aklımızda bulundurmamızda fayda var. Aşağıda buna örnek bir dizi sın�
 tasarımı verilmiştir.
 
 
-```
+```cs
 public class CalisanRaporFormu {
         private List calisanlar;
         private Calisan seciliCalisan;
@@ -175,7 +175,7 @@ bütün kodlarımızı tekrar derleyip yeni halini müşterimize gönderdik.Değ
 **CalisanRaporFormu** sınıfımız ve yeni eklenen Pdf raporu sınıfımız aşağıdaki
 şekilde olacaktır.
 
-```
+```cs
 public class CalisanRaporFormu {
         private List calisanlar;
         private Calisan seciliCalisan;
@@ -226,7 +226,7 @@ gibi olur.
 
 ![DIP2Again](/img/dependencyinversion/dipyeniden-2.jpg)
 
-```
+```cs
 public class CalisanPdfRaporu : ICalisanRaporu{
       public CalisanPdfRaporu(){
 
