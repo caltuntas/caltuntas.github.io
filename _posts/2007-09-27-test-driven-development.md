@@ -342,15 +342,15 @@ at org.junit.internal.runners.BeforeAndAfterRunner.runProtected(BeforeAndAfterRu
 //......
 ```
 
-Yukarıdaki hataya bakacak olursanız JUnit bize IllegalArgumentException
-hatasını beklediğimizi fakat NullPointerException hatası fırlatıldığını
-söylüyor. Biz kodumuzun zaten Null değerine karşı hata atmasını istemiştik
-fakat neden testin başına NullPointerException olarak değiştirmedik?Öyle
+Yukarıdaki hataya bakacak olursanız **JUnit** bize **IllegalArgumentException**
+hatasını beklediğimizi fakat **NullPointerException** hatası fırlatıldığını
+söylüyor. Biz kodumuzun zaten **Null** değerine karşı hata atmasını istemiştik
+fakat neden testin başına **NullPointerException** olarak değiştirmedik?Öyle
 yapsaydık aslında bu testi hiç kod yazmadan geçmiş olurduk. Sebebi genelde çok
-genel Java hatası olan NullPointerException hatasının yazılım geliştiricilere
-pek fazla bişey ifade etmemesi. Düşünsenize programı ürün olarak çıkardınız ve
-ekranda hata detayında detaylı bir hata mesajı görmekmi daha iyi olur yoksa
-NullPointerException mı?O yüzden hata fırlattığımızda anlamlı programcılar için
+genel **Java** hatası olan **NullPointerException** hatasının yazılım geliştiricilere
+pek fazla bir şey ifade etmemesi. Düşünsenize programı ürün olarak çıkardınız ve
+ekranda hata detayında detaylı bir hata mesajı görmek mi daha iyi olur yoksa
+**NullPointerException** mı?O yüzden hata fırlattığımızda anlamlı programcılar için
 sorunun çözümüne yardımcı hatalar fırlatmaya özen göstermeliyiz. Lafı fazla
 uzatmadan bu testide geçecek kodu aşağıdaki gibi yazıyoruz.
 
@@ -386,7 +386,7 @@ giriş yazısı için yeterli olduğunu düşünüyorum.Sizde yazdığınız tes
 durumları test ettiğinizi düşünüyorsanız bu şekilde bırakabilirsiniz. Başka bir
 yazıda neleri test etmeliyiz hakkında birkaç şey yazmayı planlıyorum.
 
-Küçük bir örnek olsada Test Driven Development pratiği açısından küçük
+Küçük bir örnek olsa da Test Driven Development pratiği açısından küçük
 adımlarla nasıl kod geliştirildiğine baktık. Burada küçük adımlar olması
 gerçekten önemli büyük adımlar ile birkaç özelliği birden test etmeye
 çalıştığınızda kontrolü kaybedip bol bol insanın sinirini bozan kırmızı
