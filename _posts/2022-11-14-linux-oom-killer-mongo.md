@@ -6,8 +6,6 @@ date: 2022-11-14T07:00:00-07:00
 tags: linux mongodb
 ---
 
-### Ortam
-
 Linux sanal makina host üzerinde koşan Docker compose ya da swarm altyapısını kullanan bir projemiz var. 
 Ürünün farklı modülleri farklı servisler altında container olarak çalışıyor. 
 Veritabanı olarak kullandığımız **MongoDB** yine container olarak ayağa kalkıyor ve yaşamını sürdürüyor. 
