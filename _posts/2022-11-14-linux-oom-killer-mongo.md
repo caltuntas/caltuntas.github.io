@@ -60,7 +60,7 @@ sisteminde boşta olan bellek miktarını kontrol ettim. Aşağıdaki gibi bir r
 watch free -h
 ```
 
-![free memory](./img/oom/free.png)
+![free memory](/img/oom/free.png)
 
 Ardından docker container içinde çalışan tüm işlemlerin **oom_score** değerlerini bulacak **oom.sh** aşağıdaki scripti hazırladım.
 
@@ -97,7 +97,7 @@ basit bir container oluşturdum.
 [host]#docker exec -it large_memory bash
 [bash]for i in {1..12}; do cat /dev/zero | head -c 1000m | tail & done
 ```
-![jobs](./img/oom/jobs.png)
+![jobs](/img/oom/jobs.png)
 
 Yukarıda container'ı interaktif modda ayağa kaldırıp **run** sonrasında kapanmasın diye ilk başta **-d -t** 
 parametreleri ile çalıştırıyoruz. Ardından container içine girip **for** döngüsü ile her biri **1000MB** tüketecek
@@ -119,15 +119,15 @@ var bunun hepsini tüketmek istiyorum. 1000MB olmasının sebebi ise, bu testi y
 Birkaç dakika sonra, oluşturduğumuz yeni container içindeki işler tüm belleği tüketiyor ve bellekte yer kalmıyor ve neredeyse MongoDB'nin 10 
 katı bellek tüketiyor. 
 
-![stats](./img/oom/stats.png)
+![stats](/img/oom/stats.png)
 
 Fakat  o sırada **oom.sh** scriptini çalıştırdığımızda aşağıda gördüğünüz gibi **mongod** en tepede yani bellek kalmadığında bir süre sonra sonlandırılacak işlem olarak gözüküyor.
 
-![oom scores](./img/oom/oom_score.png)
+![oom scores](/img/oom/oom_score.png)
 
 Hemen sonrasında aynı gerçek ortamda yaşadığımız gibi test ortamında da MongoDB kapanıyor ve bekletiğimiz gibi kernel mesajlarında aynı uyarıyı alıyoruz.
 
-![dmesg](./img/oom/dmesg.png)
+![dmesg](/img/oom/dmesg.png)
 
 ### Sonuç
 
