@@ -93,8 +93,8 @@ Sıra geldi yük oluşturmaya yani bitene kadar bellek tüketmeye. **large_memor
 basit bir container oluşturdum. 
 
 ```
-[host]#docker run --name large_memory -d -t bash
-[host]#docker exec -it large_memory bash
+[host]docker run --name large_memory -d -t bash
+[host]docker exec -it large_memory bash
 [bash]for i in {1..12}; do cat /dev/zero | head -c 1000m | tail & done
 ```
 ![jobs](/img/oom/jobs.png)
