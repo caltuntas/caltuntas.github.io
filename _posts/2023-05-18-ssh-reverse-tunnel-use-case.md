@@ -2,7 +2,7 @@
 layout: post
 title: "SSH Reverse Tunnel - Pratik Bir Kullanım Senaryosu"
 description: "SSH Reverse Tunnel - Pratik Bir Kullanım Senaryosu"
-date: 2023-05-18T07:00:00-07:00
+date: 2022-05-18T07:00:00-07:00
 tags: ssh
 ---
 
