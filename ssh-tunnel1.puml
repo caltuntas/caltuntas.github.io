@@ -1,0 +1,40 @@
+@startuml
+hide stereotype
+!define osaPuml https://raw.githubusercontent.com/Crashedmind/PlantUML-opensecurityarchitecture2-icons/master
+!include osaPuml/Common.puml
+!include osaPuml/Hardware/all.puml
+!include osaPuml/Server/all.puml
+
+skinparam actorStyle awesome
+
+together {
+osa_server(server1, "POC Network", "Application Server")
+osa_server(server2, "Server Network 1", "Target Server 1")
+osa_server(server3, "Server Network 2", "Target Server 2")
+}
+
+osa_desktop(pc, "User Network", "PC")
+
+server1 -[#red,thickness=2]l-> server2
+note on link
+  port 22
+end note
+server1 -[#green,thickness=2]r-> server3
+note on link
+  port 123
+end note
+pc -[#green,thickness=2]u-> server1
+note on link
+  port 22
+end note
+pc -[#green,thickness=2]u-> server2
+note on link
+  port 22
+end note
+pc -[#green,thickness=2]u-> server3
+note on link
+  port 123
+end note
+:User: -[#green,thickness=2]u-> pc
+
+@enduml
