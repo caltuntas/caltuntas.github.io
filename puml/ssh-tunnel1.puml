@@ -15,26 +15,11 @@ osa_server(server3, "Server Network 2", "Target Server 2")
 
 osa_desktop(pc, "User Network", "PC")
 
-server1 -[#red,thickness=2]l-> server2
-note on link
-  port 22
-end note
-server1 -[#green,thickness=2]r-> server3
-note on link
-  port 123
-end note
-pc -[#green,thickness=2]u-> server1
-note on link
-  port 22
-end note
-pc -[#green,thickness=2]u-> server2
-note on link
-  port 22
-end note
-pc -[#green,thickness=2]u-> server3
-note on link
-  port 123
-end note
-:User: -[#green,thickness=2]u-> pc
+server1 -[#red]l-> server2: X - port 22
+server1 -[#green]r-> server3: port 123
+pc -[#green]u-> server1: port 123
+pc -[#green]u-> server2: port 22
+pc -[#green]u-> server3: port 123
+:User: -[#green]u-> pc
 
 @enduml

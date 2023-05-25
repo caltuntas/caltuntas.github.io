@@ -1,0 +1,28 @@
+@startuml
+!pragma teoz true
+hide stereotype
+!define osaPuml https://raw.githubusercontent.com/Crashedmind/PlantUML-opensecurityarchitecture2-icons/master
+!include osaPuml/Common.puml
+!include osaPuml/Hardware/all.puml
+!include osaPuml/Server/all.puml
+
+skinparam actorStyle awesome
+
+together {
+osa_server(server1, "POC Network", "Application Server")
+osa_server(server2, "Server Network 1", "Target Server 1")
+osa_server(server3, "Server Network 2", "Target Server 2")
+}
+
+osa_desktop(pc, "User Network", "PC")
+
+server1 -[#red]l-> server2: X - port 22
+server1 -[#green]r-> server3: port 123
+server1 -[dotted]-> pc: Reverse Tunnel
+pc -[dotted]-> server2: Reverse Tunnel
+pc -[#green]u-> server1: SSH Connection
+pc -[#green]u-> server2: port 22
+pc -[#green]u-> server3: port 123
+:User: -[#green]u-> pc
+
+@enduml

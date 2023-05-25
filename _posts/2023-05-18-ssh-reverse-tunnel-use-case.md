@@ -31,9 +31,8 @@ Gelin bunu benzer bir senaryoda uygulayalım ve laboratuvar ortamımızda buluna
 Normalde ikisi tamamen birbirinden habersiz erişim mümkün değil. Bunun için aşağıdaki komutla SSH ters tünel oluşturuyorum. Ben MacOS üzerinde çalıştığım için
 OpenSSH kullanıyorum fakat bunu Windows üzerinde Putty ile de yapabilirsiniz, sadece komut yerine arayüzden ilgili ayarları yapmanız gerekecek.
 
-
 ```
-ssh -N -R localhost:22234:172.16.33.234:22 root@192.168.100.30 -vvv
+[mypc] ssh -N -R localhost:22234:172.16.33.234:22 root@192.168.100.30 -vvv
 ```
 
 Ev sunucusu 172.16.33.234 IP adresine sahip, laboratuvar ortamındaki sunucu 192.168.100.30 adresine sahip. Laboratuvar ortamındaki
@@ -50,14 +49,13 @@ Görüldüğü gibi tünel başarıyla oluşturuldu fakat bu aşamada henüz ben
 Aşağıdaki komutu kendi bilgisayarımda çalıştırdığımda bana boş çıktı veriyor
 
 ```
-[mypc]# lsof -i @172.16.33.234:22
-
+[mypc] lsof -i @172.16.33.234:22
 ```
 
 Uzak sunucuda dinlenilen portları kontrol ettiğimde ise aşağıdaki gibi `sshd` işleminin verdiğimiz portu dinlemeye başladığını görebiliyoruz
 
 ```
-[remoteserver]# ss -tulpn | grep 22234
+[remoteserver] ss -tulpn | grep 22234
 tcp    LISTEN     0      128    127.0.0.1:22234                 *:*                   users:(("sshd",pid=25562,fd=9))
 tcp    LISTEN     0      128       [::1]:22234              [::]:*                   users:(("sshd",pid=25562,fd=8))
 ```
@@ -65,13 +63,13 @@ tcp    LISTEN     0      128       [::1]:22234              [::]:*              
 Şimdi aynı uzak sunucu üzerinden evdeki sunucuma bağlanmak için aşağıdaki gibi ssh bağlantısı kuruyorum.
 
 ```
-[remoteserver]# ssh username@localhost:22234
+[remoteserver] ssh username@localhost:22234
 ```
 
 Ardından şifre girdiğimde evdeki sunucuma bağlantı yapabildim. Dikkat edin evdeki kişisel bilgisayarım üzerinden bu bağlantıyı yapmamama rağmen
 evdeki sunucu üzerindeki bağlantıları aşağıdaki gibi kontrol ettiğimde bağlantımın kişisel bilgisayarım üzerinden açılan tünel üzerinden yapıldığını görebiliyorum.
 
 ```
-[caltuntas@nasserver]$ netstat -ant | grep 172.16.33.89
+[nasserver] netstat -ant | grep 172.16.33.89
 tcp        0     36 172.16.33.234:22        172.16.33.89:59815      ESTABLISHED
 ```
