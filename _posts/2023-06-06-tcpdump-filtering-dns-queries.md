@@ -114,10 +114,12 @@ diye düşünüyorum.
 
 ```
 tcpdump -ln -i ens160 'udp port 53 and udp[10] & 0x80 = 0'
+tcpdump -ln -i ens160 'udp port 53 and udp[10] = 0x1'
+tcpdump -ln -i ens160 'udp port 53 and udp[10] = 1'
 ```
 
-`& 0x80 = 0` nereden geldi diye sorulabilir, hemen açıklayalım. Tcpdump ile direk bir `bit flag` karşılaştırması yapamadığımız için
-bit maskeleme ile aslında dolaylı yoldan oradaki değerin `0x0100` olduğunu kontrol ediyoruz. Bu filtreyi denediğimizde sonuç aşağıdaki gibi oluyor
+Yukarıdaki filtrelerin hepsi aynı kapıya çıkıyor. `& 0x80 = 0` nereden geldi diye sorulabilir, hemen açıklayalım. Tcpdump ile istersek `bit flag` karşılaştırması yaparak
+için aslında dolaylı yoldan oradaki değerin `0x0100` olduğunu kontrol edebiliriz. Yukarıdaki filtrelerden herhangi birini denediğimizde sonuç aşağıdaki gibi oluyor
 
 ```
 08:50:00.092381 IP 192.168.100.61.4045 > 208.91.112.52.53: 43+ A? strict.bing.com. (33)
