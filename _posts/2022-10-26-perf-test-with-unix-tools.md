@@ -3,7 +3,7 @@ layout: post
 title: "Unix Araçları ile REST Api Performans Testi"
 description: "Unix Araçları ile REST Api Performans Testi"
 date: 2022-10-26T07:58:29+00:00
-tags: unix-tools, rest-api, test
+tags: unix-tools rest-api test
 ---
 
 Geçenlerde canlı ortamda bazı işlemlerle alakalı yavaşlık olduğunu gözlemlemiştik. 
