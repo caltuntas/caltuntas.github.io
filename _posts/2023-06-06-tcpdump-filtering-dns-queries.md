@@ -222,3 +222,8 @@ tcpdump -ln -i ens160 'udp port 53  and udp[10] & 0x80 = 0 and udp[(udp[4:2]-4):
 
 Çalıştırdığımızda aşağıdakine benzer sonuçları görebilirsiniz. Gerisi hayal gücünüze kalmış
 
+
+#### Referanslar
+
+- [Fundamentals of Computer Networking Project : Simple DNS Client](https://mislove.org/teaching/cs4700/spring11/handouts/project1-primer.pdf)
+- [Tcpdump advanced filters](https://blog.wains.be/2007/2007-10-01-tcpdump-advanced-filters/)
