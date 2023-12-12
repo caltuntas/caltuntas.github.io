@@ -2,7 +2,7 @@
 layout: post
 title: "Sorun Her Zaman DNS - Musl LibC"
 description: "Sorun Her Zaman DNS - Musl LibC"
-date: 2023-06-06T07:00:00-07:00
+date: 2023-12-10T07:00:00-07:00
 tags: dns musl linux
 ---
 
@@ -125,9 +125,9 @@ sequenceDiagram
     and 
         Musl->>192.168.100.20: adc.example.com
     end    
+    192.168.100.20-->>Musl: 192.168.100.21
     8.8.8.8-->>Musl: No such name
     8.8.4.4-->>Musl: No such name
-    192.168.100.20-->>Musl: 192.168.100.21
 Musl-->>-Client: 192.168.100.21
 ```
 
