@@ -117,14 +117,6 @@ Musl [dökümanında](https://wiki.musl-libc.org/functional-differences-from-gli
 ama bunu aşağıdaki gibi diyagram olarak çizersek daha rahat anlaşılır. 
 
 ```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
-```
-
-```mermaid
 sequenceDiagram
     Client->>+Musl: What is the IP address of "adc.example.com"
     par 
@@ -139,7 +131,6 @@ sequenceDiagram
     8.8.4.4-->>Musl: No such name
 Musl-->>-Client: 192.168.100.21
 ```
-
 
 Peki internal DNS sunucumuz geç cevap verse nasıl olacaktı? Hemen kendi ortamımızda bu gecikmeyi canlandıralım. Aşağıda `tc` yani traffic control komutları ile
 internal DNS sunucumuz olan 192.168.100.20'ye giden paketlere 5000ms gecikme ekliyoruz, bu şekilde bize geç cevap dönmüş olacak.
