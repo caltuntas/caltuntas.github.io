@@ -2,6 +2,7 @@
 layout: post
 title: "Sorun Her Zaman DNS - Musl LibC"
 description: "Sorun Her Zaman DNS - Musl LibC"
+mermaid: true
 date: 2023-12-10T07:00:00-07:00
 tags: dns musl linux
 ---
@@ -114,6 +115,14 @@ Burada doğru cevap almamızın sebebi aslında tamamen rastlantı, internal ola
 
 Musl [dökümanında](https://wiki.musl-libc.org/functional-differences-from-glibc.html#Name-Resolver/DNS) mantığın nasıl çalıştığından bahsetmiş
 ama bunu aşağıdaki gibi diyagram olarak çizersek daha rahat anlaşılır. 
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
 
 ```mermaid
 sequenceDiagram
