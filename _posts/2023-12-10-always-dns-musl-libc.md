@@ -183,6 +183,49 @@ sequenceDiagram
 Musl-->>-Client: No such name
 ```
 
+## Meraklısına
+
+Benim gibi `Musl` kardeş neler yapıyor merak edenlere, fonksiyon çağrılarını izlemek için call trace işlemi başlatalım dedim.
+Eğer debug sembolleri yoksa sadece dışarıya açılmış fonksiyon isimlerini vereceğinden , önce `musl` için debug paketini ekledim. Böylece neler olup bitiyor daha rahat 
+görebiliriz. 
+
+```
+bash-5.1# apk add musl-dbg
+bash-5.1# apk add perf
+bash-5.1# perf record --call-graph dwarf getent hosts adc.example.local
+bash-5.1# perf report
+```
+
+```
+    62.50%     0.00%  getent   getent               [.] hosts
+            |
+            ---hosts
+               gethostbyname2
+               gethostbyname2_r
+               __lookup_name
+               name_from_dns_search (inlined)
+               |
+               |--50.00%--name_from_dns
+               |          __res_msend_rc
+               |          |
+               |          |--25.00%--sendto
+               |          |          __alt_socketcall (inlined)
+               |          |          __syscall_cp_c
+               |          |          __cp_end
+               |          |          entry_SYSCALL_64_after_hwframe
+               |          |          do_syscall_64
+               |          |          __x64_sys_sendto
+               |          |          __sys_sendto
+               |          |          sock_sendmsg
+               |          |          inet_sendmsg
+               |          |          udp_sendmsg
+               |          |          udp_send_skb
+               |          |          ip_send_skb
+```
+
+Call stack içinde de görüldüğü gibi tüm hikaye [gethostbyname2](https://github.com/bminor/musl/blob/f314e133929b6379eccc632bef32eaebb66a7335/src/network/gethostbyname2.c#L8) içerisinden başlıyor ve devam ediyor. Kodu incelemek isteyenler linke tıklayabilir.
+
+
 Görüldüğü gibi işletim sisteminin kullandığı C kütüphanesi ve onun çalışma mantığı DNS konusu olunca yazdığımız uygulamadan, işletim sisteminde bulunan araçlara kadar farklı şeyleri etkileyebiliyor.
 Hele Docker, Kubernetes gibi platformlar için isim çözümleme oldukça kritik, gitmek istediğiniz servislere önce çözümleme yaparak işe başlıyorlar. Musl ile Glibc işleyiş ve özellikler açısından farklılık gösterebiliyor, bir sonraki yazıda
 belki DNS ile alakalı diğer başımı ağrıtan Musl problemine değinirim ya da Glibc bu işe nasıl yapıyor ona bakabiliriz.
