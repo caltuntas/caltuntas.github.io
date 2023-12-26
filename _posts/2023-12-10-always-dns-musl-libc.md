@@ -93,13 +93,13 @@ Burada C kütüphaneleri içinde işleyiş de birbirinden farklı. Örnek olarak
 yok sayabiliyorlar. 
 
 ```
-bash-5.1# getent hosts adc.sechard.local
+bash-5.1# getent hosts adc.example.local
 192.168.100.21    adc.example.local  adc.example.local
 
 
 bash-5.1# cat lookup.js
 const dns = require('node:dns');
-dns.lookup('adc.sechard.local', (err, address, family) =>
+dns.lookup('adc.example.local', (err, address, family) =>
   console.log('address: %j family: IPv%s', address, family));
   
   
@@ -147,12 +147,12 @@ Ardından daha önce yaptığımız gibi komut satırından ve kod ile yazdığ�
 
 
 ```
-bash-5.1# getent hosts adc.sechard.local
+bash-5.1# getent hosts adc.example.local
 
 
 bash-5.1# cat lookup.js
 const dns = require('node:dns');
-dns.lookup('adc.sechard.local', (err, address, family) =>
+dns.lookup('adc.example.local', (err, address, family) =>
   console.log('address: %j family: IPv%s', address, family));
 
 
