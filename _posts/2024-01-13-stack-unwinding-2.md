@@ -59,7 +59,7 @@ ilk başta standart bir `prologue` kodu, fonksiyon bittiğinde de `epilogue` ass
 
 Fonksiyon çağrıları devam ettikçe stack aşağıdaki gibi gözükür.
 
-![Stack](./img/unwin/stack.png) 
+![Stack](/img/unwind/stack.png) 
 
 Bu adreslerdeki değerlere bakınca aslında bir, stack çözümleme bağlı liste veri yapısı oluşturmak kadar kolay. Her stack çerçevesi için
 `rbp` değerini bul, sonra geriye doğru bunları birleştir ve çözümlemeyi bitir. 
