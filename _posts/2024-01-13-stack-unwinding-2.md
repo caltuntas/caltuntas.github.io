@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Crash Dump Stack Analizi - Bölüm 2 El İle Çözümleme"
-description: "Crash Dump Stack Analizi - Bölüm 2 El İle Çözümleme"
+title: "Core Dump Stack Analizi 2 - El İle Çözümleme"
+description: "Core Dump Stack Analizi 2 - El İle Çözümleme"
 mermaid: true
 date: 2024-01-13T07:00:00-07:00
 tags: musl linux assembly gdb unwinding
@@ -10,7 +10,22 @@ tags: musl linux assembly gdb unwinding
 Tavşan deliğinde bir alt kata inmek zorunda kaldık, önümüzde tamamen farklı bir tünel var, ama çözmek için mecburen giriş yapmak zorundayız. 
 Bu bölümde çözüm üretebilmemiz için maalesef `x86-64, assembly, call conventions` gibi alt seviye kavramları bilmemiz gerekiyor. 
 
-## Nedir Bu Epilogue ve Prologue? 
+Bu yazı serisi 3 bölümden oluşmaktadır, diğer bölümlere aşağıdaki linklerden ulaşılabilir.
+
+## Bölümler
+1. [Sorunu Anlamak](https://www.cihataltuntas.com/2024/01/13/stack-unwinding-1.html)
+2. El İle Çözümleme (Bu yazı)
+
+## El İle Çözümleme
+1. [Nedir Bu Epilogue ve Prologue? ](#epilogue-prologue)
+2. [Caller ve Callee Saved Registers](#caller-ve-callee-saved-registers)
+3. [Optimizasyon Etkisi](#optimizasyon-etkisi)
+4. [Frame Pointer Olmadan Çözümle](#frame-olmadan)
+    1. [setjmp Frame Analizi](#setjmp)
+    2. [raise Frame Analizi](#raise)
+    3. [abort Frame Analizi](#abort)
+
+## Nedir Bu Epilogue ve Prologue? {#epilogue-prologue}
 
 GDB üzerinden aynı core-dump dosyasını yükleyip aşağıdaki gibi `disassemble` komutunu çalıştırınca bize, aşağıdaki gibi `assembly` komutlarını gösteriyor. 
 Aşağıya sadece `sub` ve `mul` fonksiyonlarını görebilirsiniz.
@@ -148,7 +163,7 @@ Bu optimizasyonun ana sebebi aslında performans artışı, `rbp` boşa çıkıp
 hem de prologue ve epilogue işlemlerinde rbp değerini stack üzerine kaydedip geri almak için oluşturulan makine komutları ortadan kalkıyor. 
 Sonuç olarak sadece bu optimizasyon sayesinde ortalama %10-15 performans artışı sağladığı raporlanıyor.
 
-## Frame Pointer Olmadan Çözümle
+## Frame Pointer Olmadan Çözümle {#frame-olmadan}
 
 Elimizdeki `rbp` base stack frame adresini göstermediğinde stack frame ortadan kalkmıyor aslında. Tamam `rbp` baz alınarak kolayca
 frame adresi bulanamaz ama frame yine orada, sadece bu sefer `rsp` değerine göre bu hesaplama yapılabilir. 
@@ -157,7 +172,7 @@ frame adresi bulanamaz ama frame yine orada, sadece bu sefer `rsp` değerine gö
 Bu hesaplama sonrasında o fonksiyon içinde stack nereden başlar, bir önceki fonksiyon adresi nerededir diye bulabiliriz, çünkü bunlar hala stack üzerinde tutulan
 değerler.
 
-## 1. Adım setjmp Frame Analizi
+### setjmp Frame Analizi {#setjmp}
 
 İlk olarak bu adımdan, yani core dump alındığında bellekte çalışan, en alttaki stack frame fonksiyonundan başlayalım. Bunu çözümledikten sonra, adım adım bir üstte bulunan fonksiyon
 çağrılarına giderek devam edeceğiz. 
@@ -237,7 +252,7 @@ değiştiren bir şey olmadığından stack frame adresimiz `rsp` ile aynı. Ç�
 | 0  | setjmp     | \*(void\*\*)(rsp)           | rsp+8                |
 
 
-## 2. Adım raise Frame Analizi
+### raise Frame Analizi {#raise}
 
 İlk frame içinde, bir önceki bizi çağıran fonksiyonun `raise` olduğunu bulmuştuk. Şimdi bu fonksiyonu inceleyelim
 ve stack frame adresini bulmaya çalışalım.
@@ -288,7 +303,7 @@ Bu hesaplamadan sonra tablomuz aşağıdaki gibi oldu.
 | 0  | setjmp     | \*(void\*\*)(rsp)           | rsp+8                |
 | 1  | raise      | \*(void\*\*)(rsp+0x88+16)   | rsp+0x88+16+8        |
 
-## 3. Adım abort Frame Analizi
+### abort Frame Analizi {#abort}
 
 Bir önceki adımda `raise` fonksiyonunu çağıran fonksiyonun `abort` olduğunu belirlemiştik, şimdi abort için stack nerede başlar nerede biter ve onu çağıran fonksiyonun
 frame değerlerini çıkaralım.
@@ -359,3 +374,9 @@ Bu aşamadan sonra devam edip, kendi yazdığımız kodun fonksiyonlarına kadar
 diğer stack frame bilgilerini kendisi çıkarabiliyor.
 Bunu sürekli el ile yapmak tabi mümkün değil ama otomasyon haline getirmek için adım adım nasıl yapıldığını bilmek gerekiyordu.
 Şimdi bir sonra ki bölümde bunu nasıl otomasyon haline getirebiliriz onu inceleyelim.  
+
+#### Referanslar
+- [Deep Wizardry: Stack Unwinding](https://blog.reverberate.org/2013/05/deep-wizardry-stack-unwinding.html)
+- [Debugging in GDB: Create custom stack winders](https://developers.redhat.com/articles/2023/06/19/debugging-gdb-create-custom-stack-winders#)
+- [Unwinding the stack the hard way](https://lesenechal.fr/en/linux/unwinding-the-stack-the-hard-way)
+- [Getting the call stack without a frame pointer](https://yosefk.com/blog/getting-the-call-stack-without-a-frame-pointer.html)

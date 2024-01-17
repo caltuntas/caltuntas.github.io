@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Crash Dump Stack Analizi - Bölüm 1 Sorunu Anlamak"
-description: "Crash Dump Stack Analizi - Bölüm 1 Sorunu Anlamak"
-mermaid: true
+title: "Core Dump Stack Analizi 1 - Sorunu Anlamak"
+description: "Core Dump Stack Analizi 1 - Sorunu Anlamak"
+mermaid: false
 date: 2024-01-13T07:00:00-07:00
 tags: musl linux assembly gdb unwinding
 ---
@@ -21,7 +21,13 @@ ve kendimi ilk düşündüğümden ve beklediğimden çok daha farklı konuları
 bunun bir `lanet` mi yoksa `hediye` mi olduğu sorusu olsa da uzun vadede kontrol edebildiğiniz sürece, en azından kendi açımdan
 daha faydalı olduğunu gördüm diyebilirim. 
 
-# İçindekiler
+Bu yazı serisi 3 bölümden oluşmaktadır, diğer bölümlere aşağıdaki linklerden ulaşılabilir.
+
+## Bölümler
+1. Sorunu Anlamak (Bu yazı)
+2. [El İle Çözümleme](https://www.cihataltuntas.com/2024/01/13/stack-unwinding-2.html)
+
+## Sorunu Anlamak
 1. [NodeJS Core Dump Problemi](#nodejs-core-dump-problemi)
 2. [Stack Unwinding](#stack-unwinding)
 3. [Sorun Derleyici Mi?](#sorun-derleyici)
@@ -631,3 +637,9 @@ ve başarılı şekilde bize stack çağrılarını çıkarıyor. Yukarıda GDB'
 bundan dolayı `??` işaretlerini görüyoruz. 
 
 Bir sonraki bölümde bu sorunu nasıl GDB'ye yardımcı olarak giderebiliriz, kolları sıvayıp işe koyulacağız. 
+
+#### Referanslar
+- [Deep Wizardry: Stack Unwinding](https://blog.reverberate.org/2013/05/deep-wizardry-stack-unwinding.html)
+- [Debugging in GDB: Create custom stack winders](https://developers.redhat.com/articles/2023/06/19/debugging-gdb-create-custom-stack-winders#)
+- [Unwinding the stack the hard way](https://lesenechal.fr/en/linux/unwinding-the-stack-the-hard-way)
+- [Getting the call stack without a frame pointer](https://yosefk.com/blog/getting-the-call-stack-without-a-frame-pointer.html)
