@@ -16,10 +16,15 @@ ifade etmeye çalıştığı durum içinde buluyorum. Biraz da `copy-paste` yakl
 bir yapıda olduğumdan dolayı olabilir. 
 
 Bir konu öğrenirken, içinde geçen bilmediğim bir kavram varsa, "bunu bilmiyorum, bir bakayım neymiş", diye baktıktan sonra
-ardından, bir bakmışım tavşan deliğinin bir yolu beni bambaşka bir tarafa götürmüş ve orada da başka bir konu önüme çıkmış
+ardından, bir bakmışım tavşan deliğinin bir yolu beni bambaşka bir tarafa götürmüş ve orada da farklı bir konu önüme çıkmış
 ve kendimi ilk düşündüğümden ve beklediğimden çok daha farklı konuları öğrenirken ya incelerken bulabiliyorum. Kafamda hep
 bunun bir `lanet` mi yoksa `hediye` mi olduğu sorusu olsa da uzun vadede kontrol edebildiğiniz sürece, en azından kendi açımdan
 daha faydalı olduğunu gördüm diyebilirim. 
+
+* TOC
+* {:toc}
+
+## NodeJS Core Dump Problemi
 
 Tavşan deliğine inişimiz şöyle başladı, elimde __NodeJS__ core dump dosyası var, bellek durumunu incelemek için, önce __GDB__ 
 ile problemin olduğu ortamda dosyayı yükleyip aşağıdaki gibi açtım. Kafamda en azından `Call Stack` beklentisi var. 
@@ -73,9 +78,7 @@ Core file '/tmp/core.f8f32091796c.node.1700129772.28' (x86_64) was loaded.
 
 `Peki neden bu stack LLDB'de düzgün gözüküyor da, GDB'de düzgün gözükmüyor?` diye sorduğum an tam olarak tavşan deliğine girmiş olduğum andı.
 
-## Bölüm 1 - Sorunu Anlamak
-
-### Stack Unwinding Gizemli Dünyasına Giriş
+## Stack Unwinding
 
 Terminolojiyi öğrenince __debugger__ araçları için bu `Call Stack` çıkarma işinin [Stack Unwinding](https://en.wikipedia.org/wiki/Call_stack#Unwinding) olarak adlandırıldığını öğrendim. Çoğu geliştirdiğimiz program, 
 belleğe yüklendikten sonra, fonksiyon çağrılarını, lokal değişkenleri **stack** dediğimiz belleğin bir bölümü üzerinde gerçekleştiriyor. 
@@ -83,7 +86,7 @@ Kullandığımız IDE, Debugger vb.. araçlar ise stack durumunu analiz edip, bi
 geldiğini, bu fonksiyon çağrıları içinde lokal değişkenleri ve değerlerini, CPU register değerlerini gösterebiliyor. Farkında olmasak da
 aslında debug yapıldığı her durumda genelde kullandığımız bir kavram.
 
-### Sorun Kullanılan Derleyici Mi?
+## Sorun Kullanılan Derleyici Mi?
 
 Benim asıl merak ettiğim neden, bu işlemi, yani bu hataya hangi fonksiyon çağrılarını yaparak gelmiş bilgisini LLDB gösterebiliyorken
 GDB gösteremiyor. Bunu anlamak için kolları sıvayıp, önce bunun **GDB** ile ilgili bir bug olduğunu düşünüp en son versiyona geçirdim ama değişen bir şey olmadı. 
@@ -191,7 +194,7 @@ Core file '/tmp/core-main.1427.e28334d67f07.1705221934' (x86_64) was loaded.
 Yani sorun compiler yani GCC ile alakalı değil, LLDB GCC ile derlenen bir programın dump dosyasını inceleyip optimizasyonlar açık olsa bile çıkarabildi
 fakat GDB aynı işlemi yapamadı.
 
-### Sorun Derleyici Optimizasyonları mı?
+## Sorun Derleyici Optimizasyonları mı?
 
 Belki GDB'nin optimizasyonlar açık şekilde derlenmiş programların stack çözümlemesinde yaşadığı bir problem olabilir diye bu sefer
 optimizasyonları kapatıp o şekilde derleyip tekrar inceledim.
@@ -247,7 +250,7 @@ Core file '/tmp/core-main.1464.e28334d67f07.1705226726' (x86_64) was loaded.
 
 Optimizasyonları kapatsak da işe yaramadı, GDB yine çözümleme işlemini yapamadı.
 
-### Sorun Debug Sembollerinin Eksikliği Mi?
+## Sorun Debug Sembollerinin Eksikliği Mi?
 
 Bildiğiniz gibi çoğu derlenen programlama dilinde, `debug` ve `release` olarak iki farklı hedef bulunur. Özellikle geliştirme zamanında
 test ortamlarında hataların daha kolay incelenebilmesi için `debug` build kullanılır. Bunların içinde bulunan semboller ile aslında `debugger` 
@@ -321,7 +324,7 @@ Harika sonunda ilerleme kaydedebildik, aslında sorunun asıl sebebi bizim progr
 GDB debug sembolleri olmadığından `musl` kütüphanesinin stack çözümlemesini yapamıyor ve o yüzden 
 bizim kodun da adımlarını gösteremiyor, `musl` debug sembollerini ekleyince sorun çözüldü. 
 
-### Peki LLDB Nasıl Çözümleme Yapabiliyor? 
+## Peki LLDB Nasıl Çözümleme Yapabiliyor? 
 
 Musl debug sembollerini ekleyip sorunu çözdük deyip bıraksaydık işin eğlenceli kısmını, yani tavşan deliğinin 
 derinliklerini keşfetme fırsatını kaçırırdık. Asıl eğlence bundan sonra başlıyor diyebiliriz. 
@@ -376,7 +379,7 @@ Burada dikkatimi çeken ilk şey yukarıdaki loglarda geçen aşağıdaki satır
  ...
 ```
 
-### İşin Sırrı EH Frame Tabanlı Çözüleme Mi?
+## İşin Sırrı EH Frame Tabanlı Çözüleme Mi?
 
 Yukarıdaki loglarda görüldüğü gibi LLDB çözümleme yaparken ilk olarak EH frame bilgisini okumuş ardından `assembly insn profiling UnwindPlan` kullanıyorum demiş.
 EH Frame daha önce duymadığım bir kavram olduğu için, tavşan deliğinden yeni bir tünele doğru yola çıkmış olduk. 
@@ -536,7 +539,7 @@ Diğer tüm kısımlarla ilgili bu bilgi kaldırılmış.
 Sonuç olarak LLDB çözümlemeyi nasıl yapmış diye bakacak olursak, ilgili kısımlar için .eh_frame bilgisi olmadığına göre,
 işin sırrı `using assembly insn profiling UnwindPlan` satırında gizli diye düşünüyorum. 
 
-### Neden GDB Çözümleme Yapamıyor?
+## Neden GDB Çözümleme Yapamıyor?
 
 Biraz da LLDB tarafından GDB tarafına geçip logları inceleyelim, orada neden çözümleme yapamadığına dair ipucu bulabiliriz.
 GDB ile aynı çalıştırılabilir dosyayı tekrar açtım. Oldukça fazla log üretiyor, çoğunu kırptım önemli olanlarını bıraktım.

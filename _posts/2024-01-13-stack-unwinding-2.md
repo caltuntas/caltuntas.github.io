@@ -7,12 +7,10 @@ date: 2024-01-13T07:00:00-07:00
 tags: musl linux assembly gdb unwinding
 ---
 
-Bölüm 2 - El İle Çözümleme
-
 Tavşan deliğinde bir alt kata inmek zorunda kaldık, önümüzde tamamen farklı bir tünel var, ama çözmek için mecburen giriş yapmak zorundayız. 
 Bu bölümde çözüm üretebilmemiz için maalesef `x86-64, assembly, call conventions` gibi alt seviye kavramları bilmemiz gerekiyor. 
 
-### Nedir Bu Epilogue ve Prologue? 
+## Nedir Bu Epilogue ve Prologue? 
 
 GDB üzerinden aynı core-dump dosyasını yükleyip aşağıdaki gibi `disassemble` komutunu çalıştırınca bize, aşağıdaki gibi `assembly` komutlarını gösteriyor. 
 Aşağıya sadece `sub` ve `mul` fonksiyonlarını görebilirsiniz.
@@ -64,7 +62,7 @@ Fonksiyon çağrıları devam ettikçe stack aşağıdaki gibi gözükür.
 Bu adreslerdeki değerlere bakınca aslında bir, stack çözümleme bağlı liste veri yapısı oluşturmak kadar kolay. Her stack çerçevesi için
 `rbp` değerini bul, sonra geriye doğru bunları birleştir ve çözümlemeyi bitir. 
 
-### Caller ve Callee Saved Registers
+## Caller ve Callee Saved Registers
 
 Stack çözümleme yaparken x86-64 mimarisinde kullanılan çağrı standartlarını da bilmek gerekiyor. CPU üzerinde değerleri tutabileceğimiz sınırlı
 sayıda `register` bulunuyor. Haliyle, bir fonksiyon içinde işlem yaparken bazı register değerleri kullanıldıktan sonra başka bir fonksiyon çağrılabilir.
@@ -85,7 +83,7 @@ ulaşabilirsiniz.
 | r14      | Local variable, callee-saved |
 | r15      | Local variable, callee-saved |
 
-### Optimizasyon Etkisi
+## Optimizasyon Etkisi
 
 İşimiz bu kadar kolay demek isterdim ama değil, çünkü optimizasyonlar işin içine girdiğinde standart `prologue` ve `epilogue` düşündüğümüz
 gibi olmuyor. Örnek olarak -O1 optimizasyonlarını açıp örnek kodumuz tekrar derleyelim ve neler değişiyor bakalım.
@@ -159,7 +157,7 @@ frame adresi bulanamaz ama frame yine orada, sadece bu sefer `rsp` değerine gö
 Bu hesaplama sonrasında o fonksiyon içinde stack nereden başlar, bir önceki fonksiyon adresi nerededir diye bulabiliriz, çünkü bunlar hala stack üzerinde tutulan
 değerler.
 
-### 1. Adım setjmp Frame Analizi
+## 1. Adım setjmp Frame Analizi
 
 İlk olarak bu adımdan, yani core dump alındığında bellekte çalışan, en alttaki stack frame fonksiyonundan başlayalım. Bunu çözümledikten sonra, adım adım bir üstte bulunan fonksiyon
 çağrılarına giderek devam edeceğiz. 
@@ -239,7 +237,7 @@ değiştiren bir şey olmadığından stack frame adresimiz `rsp` ile aynı. Ç�
 | 0  | setjmp     | \*(void\*\*)(rsp)           | rsp+8                |
 
 
-### 2. Adım raise Frame Analizi
+## 2. Adım raise Frame Analizi
 
 İlk frame içinde, bir önceki bizi çağıran fonksiyonun `raise` olduğunu bulmuştuk. Şimdi bu fonksiyonu inceleyelim
 ve stack frame adresini bulmaya çalışalım.
@@ -290,7 +288,7 @@ Bu hesaplamadan sonra tablomuz aşağıdaki gibi oldu.
 | 0  | setjmp     | \*(void\*\*)(rsp)           | rsp+8                |
 | 1  | raise      | \*(void\*\*)(rsp+0x88+16)   | rsp+0x88+16+8        |
 
-### 3. Adım abort Frame Analizi
+## 3. Adım abort Frame Analizi
 
 Bir önceki adımda `raise` fonksiyonunu çağıran fonksiyonun `abort` olduğunu belirlemiştik, şimdi abort için stack nerede başlar nerede biter ve onu çağıran fonksiyonun
 frame değerlerini çıkaralım.
