@@ -21,8 +21,16 @@ ve kendimi ilk düşündüğümden ve beklediğimden çok daha farklı konuları
 bunun bir `lanet` mi yoksa `hediye` mi olduğu sorusu olsa da uzun vadede kontrol edebildiğiniz sürece, en azından kendi açımdan
 daha faydalı olduğunu gördüm diyebilirim. 
 
-* TOC
-* {:toc}
+# İçindekiler
+1. [NodeJS Core Dump Problemi](#nodejs-core-dump-problemi)
+2. [Stack Unwinding](#stack-unwinding)
+3. [Sorun Derleyici Mi?](#sorun-derleyici)
+4. [Sorun Optimizasyonlar Mı?](#sorun-optimizasyon)
+5. [Sorun Debug Sembolleri Mi?](#sorun-debug-sembolleri)
+6. [LLDB Nasıl Çözümleme Yapabiliyor?](#lldb-nasil-yapiyor)
+7. [İşin Sırrı EH Frame Tabanlı Çözüleme Mi?](#eh-frame-cozumleme)
+8. [Musl .eh_frame Bilgisine Neden Sahip Değil?](#musl-eh-frame)
+9. [Neden GDB Çözümleme Yapamıyor?](#neden-gdb-yapamiyor)
 
 ## NodeJS Core Dump Problemi
 
@@ -86,7 +94,7 @@ Kullandığımız IDE, Debugger vb.. araçlar ise stack durumunu analiz edip, bi
 geldiğini, bu fonksiyon çağrıları içinde lokal değişkenleri ve değerlerini, CPU register değerlerini gösterebiliyor. Farkında olmasak da
 aslında debug yapıldığı her durumda genelde kullandığımız bir kavram.
 
-## Sorun Kullanılan Derleyici Mi?
+## Sorun Derleyici Mi? {#sorun-derleyici}
 
 Benim asıl merak ettiğim neden, bu işlemi, yani bu hataya hangi fonksiyon çağrılarını yaparak gelmiş bilgisini LLDB gösterebiliyorken
 GDB gösteremiyor. Bunu anlamak için kolları sıvayıp, önce bunun **GDB** ile ilgili bir bug olduğunu düşünüp en son versiyona geçirdim ama değişen bir şey olmadı. 
@@ -194,7 +202,7 @@ Core file '/tmp/core-main.1427.e28334d67f07.1705221934' (x86_64) was loaded.
 Yani sorun compiler yani GCC ile alakalı değil, LLDB GCC ile derlenen bir programın dump dosyasını inceleyip optimizasyonlar açık olsa bile çıkarabildi
 fakat GDB aynı işlemi yapamadı.
 
-## Sorun Derleyici Optimizasyonları mı?
+## Sorun Optimizasyonlar Mı? {#sorun-optimizasyon}
 
 Belki GDB'nin optimizasyonlar açık şekilde derlenmiş programların stack çözümlemesinde yaşadığı bir problem olabilir diye bu sefer
 optimizasyonları kapatıp o şekilde derleyip tekrar inceledim.
@@ -250,7 +258,7 @@ Core file '/tmp/core-main.1464.e28334d67f07.1705226726' (x86_64) was loaded.
 
 Optimizasyonları kapatsak da işe yaramadı, GDB yine çözümleme işlemini yapamadı.
 
-## Sorun Debug Sembollerinin Eksikliği Mi?
+## Sorun Debug Sembolleri Mi? {#sorun-debug-sembolleri}
 
 Bildiğiniz gibi çoğu derlenen programlama dilinde, `debug` ve `release` olarak iki farklı hedef bulunur. Özellikle geliştirme zamanında
 test ortamlarında hataların daha kolay incelenebilmesi için `debug` build kullanılır. Bunların içinde bulunan semboller ile aslında `debugger` 
@@ -324,7 +332,7 @@ Harika sonunda ilerleme kaydedebildik, aslında sorunun asıl sebebi bizim progr
 GDB debug sembolleri olmadığından `musl` kütüphanesinin stack çözümlemesini yapamıyor ve o yüzden 
 bizim kodun da adımlarını gösteremiyor, `musl` debug sembollerini ekleyince sorun çözüldü. 
 
-## Peki LLDB Nasıl Çözümleme Yapabiliyor? 
+## LLDB Nasıl Çözümleme Yapabiliyor? {#lldb-nasil-yapiyor}
 
 Musl debug sembollerini ekleyip sorunu çözdük deyip bıraksaydık işin eğlenceli kısmını, yani tavşan deliğinin 
 derinliklerini keşfetme fırsatını kaçırırdık. Asıl eğlence bundan sonra başlıyor diyebiliriz. 
@@ -379,7 +387,7 @@ Burada dikkatimi çeken ilk şey yukarıdaki loglarda geçen aşağıdaki satır
  ...
 ```
 
-## İşin Sırrı EH Frame Tabanlı Çözüleme Mi?
+## İşin Sırrı EH Frame Tabanlı Çözüleme Mi? {#eh-frame-cozumleme}
 
 Yukarıdaki loglarda görüldüğü gibi LLDB çözümleme yaparken ilk olarak EH frame bilgisini okumuş ardından `assembly insn profiling UnwindPlan` kullanıyorum demiş.
 EH Frame daha önce duymadığım bir kavram olduğu için, tavşan deliğinden yeni bir tünele doğru yola çıkmış olduk. 
@@ -496,7 +504,7 @@ standart C kütüphanesi olarak seçilmesinin de en büyük sebebi güvenlik ve 
 Fakat kendi açımdan tamamen offline bir ortamda `musl-dbg` paketini kuramadığım durumlar olduğu ve çok küçük bir boyut artışının bana ve çalıştığım projelere
 zararı olmadığı için bu bilgi çıkarılmadan dağıtılması işime gelirdi. 
 
-## Musl .eh_frame Bilgisine Neden Sahip Değil?
+## Musl .eh_frame Bilgisine Neden Sahip Değil? {#musl-eh-frame}
 
 Daha önce demiştik, derleyici herhangi bir ek parametre kullanmazsanız .eh_frame bilgisini otomatik olarak dahil ediyor. Peki bu tarz uç durumlarda biz bunu
 nasıl çıkarabiliriz, ya da Musl nasıl dahil etmemiş. Aslında derleyici bunları dahil etmek istemezseniz size yine seçenek sunuyor. Aşağıdaki parametreleri kullandığınızda
@@ -539,7 +547,7 @@ Diğer tüm kısımlarla ilgili bu bilgi kaldırılmış.
 Sonuç olarak LLDB çözümlemeyi nasıl yapmış diye bakacak olursak, ilgili kısımlar için .eh_frame bilgisi olmadığına göre,
 işin sırrı `using assembly insn profiling UnwindPlan` satırında gizli diye düşünüyorum. 
 
-## Neden GDB Çözümleme Yapamıyor?
+## Neden GDB Çözümleme Yapamıyor? {#neden-gdb-yapamiyor}
 
 Biraz da LLDB tarafından GDB tarafına geçip logları inceleyelim, orada neden çözümleme yapamadığına dair ipucu bulabiliriz.
 GDB ile aynı çalıştırılabilir dosyayı tekrar açtım. Oldukça fazla log üretiyor, çoğunu kırptım önemli olanlarını bıraktım.
@@ -623,4 +631,3 @@ ve başarılı şekilde bize stack çağrılarını çıkarıyor. Yukarıda GDB'
 bundan dolayı `??` işaretlerini görüyoruz. 
 
 Bir sonraki bölümde bu sorunu nasıl GDB'ye yardımcı olarak giderebiliriz, kolları sıvayıp işe koyulacağız. 
-
