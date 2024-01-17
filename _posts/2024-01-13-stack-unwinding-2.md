@@ -10,11 +10,15 @@ tags: musl linux assembly gdb unwinding
 Tavşan deliğinde bir alt kata inmek zorunda kaldık, önümüzde tamamen farklı bir tünel var, ama çözmek için mecburen giriş yapmak zorundayız. 
 Bu bölümde çözüm üretebilmemiz için maalesef `x86-64, assembly, call conventions` gibi alt seviye kavramları bilmemiz gerekiyor. 
 
-Bu yazı serisi 3 bölümden oluşmaktadır, diğer bölümlere aşağıdaki linklerden ulaşılabilir.
+Bu yazı serisi 3 bölümden oluşmaktadır, diğer bölümlere aşağıdaki linklerden ulaşılabilir. Yazı içeriğinde geçen kodlara
+[bu adresten](https://gist.github.com/caltuntas/b84eda2937acfcfef2097a192a9d5995) ulaşabilirsiniz.
+
+
 
 ## Bölümler
 1. [Sorunu Anlamak](https://www.cihataltuntas.com/2024/01/13/stack-unwinding-1.html)
 2. El İle Çözümleme (Bu yazı)
+3. [Otomasyon](https://www.cihataltuntas.com/2024/01/13/stack-unwinding-3.html)
 
 ## El İle Çözümleme
 1. [Nedir Bu Epilogue ve Prologue? ](#epilogue-prologue)

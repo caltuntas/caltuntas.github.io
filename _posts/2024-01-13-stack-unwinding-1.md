@@ -15,17 +15,20 @@ betimleyen bir ifade bulamadığım için İngilizcede kullanılan __Rabbit Hole
 ifade etmeye çalıştığı durum içinde buluyorum. Biraz da `copy-paste` yaklaşımı ile yüzeysel olarak geçiştirmeyi sevmeyen
 bir yapıda olduğumdan dolayı olabilir. 
 
-Bir konu öğrenirken, içinde geçen bilmediğim bir kavram varsa, "bunu bilmiyorum, bir bakayım neymiş", diye baktıktan sonra
-ardından, bir bakmışım tavşan deliğinin bir yolu beni bambaşka bir tarafa götürmüş ve orada da farklı bir konu önüme çıkmış
-ve kendimi ilk düşündüğümden ve beklediğimden çok daha farklı konuları öğrenirken ya incelerken bulabiliyorum. Kafamda hep
+Bir konu öğrenirken, içinde geçen bilmediğim bir kavram varsa, "bunu bilmiyorum, bir bakayım neymiş", diye baktıktan hemen sonra,
+bir bakmışım tavşan deliği beni bambaşka bir tarafa çıkarmış. Bu yeni konuyu incelerken de, bir bakmışım önümde bambaşka bir konu daha var
+ve kendimi ilk düşündüğümden, beklediğimden çok daha farklı konuları öğrenirken ya da incelerken bulmuşum. Kafamda hep
 bunun bir `lanet` mi yoksa `hediye` mi olduğu sorusu olsa da uzun vadede kontrol edebildiğiniz sürece, en azından kendi açımdan
 daha faydalı olduğunu gördüm diyebilirim. 
 
-Bu yazı serisi 3 bölümden oluşmaktadır, diğer bölümlere aşağıdaki linklerden ulaşılabilir.
+Bu yazı serisi 3 bölümden oluşmaktadır, diğer bölümlere aşağıdaki linklerden ulaşılabilir. Yazı içeriğinde geçen kodlara
+[bu adresten](https://gist.github.com/caltuntas/b84eda2937acfcfef2097a192a9d5995) ulaşabilirsiniz.
+
 
 ## Bölümler
 1. Sorunu Anlamak (Bu yazı)
 2. [El İle Çözümleme](https://www.cihataltuntas.com/2024/01/13/stack-unwinding-2.html)
+3. [Otomasyon](https://www.cihataltuntas.com/2024/01/13/stack-unwinding-3.html)
 
 ## Sorunu Anlamak
 1. [NodeJS Core Dump Problemi](#nodejs-core-dump-problemi)
