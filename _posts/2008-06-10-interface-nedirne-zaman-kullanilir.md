@@ -15,9 +15,15 @@ kontrat gibidir. Java ve C# dillerinde aşağıdaki gibi kullanılır.
 interface Rapor{
     public void hazirla(Fatura fatura);
 }
-Bu interface kendinden türeyen tüm sınıfların public void hazirla(Fatura fatura) adında bir metoda sahip olmalarını zorunlu kılar aksi taktirde derleyici hata verecektir. Aşağıdaki gibi bir sınıfın bu interface’i nasıl uyguladığını gösteren koda bakalım.
+```
+
+Bu interface kendinden türeyen tüm sınıfların public void hazirla(Fatura
+fatura) adında bir metoda sahip olmalarını zorunlu kılar aksi taktirde
+derleyici hata verecektir. Aşağıdaki gibi bir sınıfın bu interface’i nasıl
+uyguladığını gösteren koda bakalım.
 
 
+```
 class PdfRapor implements Rapor{
     public void hazirla(Fatura fatura) {
         //Faturayı pdf formatında hazırlayan kodlar
