@@ -25,7 +25,7 @@ __IP__ adresi yerine, genellikle isimlerle çalışıyor. Ama modern internet al
 verilen ismin önce IP adresi çözüldükten sonra ilgili port üzerinden, bir protokol aracılığı ile geri kalan işlemler yapılıyor.
 IP adresini öğrenemediğiniz durumda kalan işlemler doğal olarak gerçekleştirilemiyor.
 
-Uygulama geliştirenler için `DNS` önemli mi? Cevap maalesef evet. Eğer bir web, network, veritabanı programlama gibi bir alanda birşeyler geliştiriyorsanız,
+Uygulama geliştirenler için `DNS` önemli mi? Cevap maalesef evet. Eğer bir web, network, veri tabanı programlama gibi bir alanda bir şeyler geliştiriyorsanız,
 eninde sonunda elinizde olan ismi, adresi IP adresine dönüştürüp işleme devam etmek zorundasınız. Örneğin `NodeJS, Python` gibi bir platformda bir `HTTP Web Request`
 oluşturup `REST API` çağırdınız, eğer IP kullanmıyorsanız, önce DNS protokolü ile IP adresi çözümlenecek ardından sizin işleminiz devam edecek.
 
@@ -127,9 +127,9 @@ sequenceDiagram
         Musl->>192.168.100.20: adc.example.com
     end    
     192.168.100.20-->>Musl: 192.168.100.21
+Musl-->>-Client: 192.168.100.21
     8.8.8.8-->>Musl: No such name
     8.8.4.4-->>Musl: No such name
-Musl-->>-Client: 192.168.100.21
 ```
 
 Peki internal DNS sunucumuz geç cevap verse nasıl olacaktı? Hemen kendi ortamımızda bu gecikmeyi canlandıralım. Aşağıda `tc` yani traffic control komutları ile
@@ -162,7 +162,9 @@ address: undefined family: IPvundefined
 
 ![Capture 1](/img/musldns/musl-dns2.png)
 
-Paket trafiğinden görüldüğü gibi gecikme işe yaramış, aslında bize iç sunucudan cevap gelmiş ama geç geldiği için, Musl ilk cevabı doğru kabul ederek yoluna devam etmiş ve bize, bu isim için herhangi bir adres çözemediğini belirtmiş.
+Paket trafiğinden görüldüğü gibi gecikme işe yaramış, aslında bize iç sunucudan
+cevap gelmiş ama geç geldiği için, Musl ilk cevabı doğru kabul ederek yoluna
+devam etmiş ve bize, bu isim için herhangi bir adres çözemediğini belirtmiş.
 
 Bu sefer son senaryo diyagram üzerinde aşağıdaki gibi işlemiş.
 
@@ -178,9 +180,9 @@ sequenceDiagram
         Musl->>192.168.100.20: adc.example.com
     end    
     8.8.8.8-->>Musl: No such name
+Musl-->>-Client: No such name
     8.8.4.4-->>Musl: No such name
     192.168.100.20-->>Musl: 192.168.100.21
-Musl-->>-Client: No such name
 ```
 
 ## Meraklısına
