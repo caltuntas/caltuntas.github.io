@@ -16,6 +16,8 @@ yani bu HTTP istekleri klasik bir tarayıcı üzerinden gönderilmiyordu. Günle
 sonuçları yeterince hızlı derleyip toparlayamadığını gözlemledik, bu sebeple konuyu derinlemesine inceleyip neler
 yapabiliriz çıkardık ve belki çoğu kişinin bildiği bir konuyu farlı bir açıdan ölçmek istedim.
 
+> Yazı boyunca kullanılan kod örneklerini [buradan](https://gist.github.com/caltuntas/c9aa264834ba4d9b05c51c999901cf6f) edilebilirsiniz.
+
 ## HTTP Request Dediğin Nedir?
 
 HTTP bir uygulama protokolü ama gönderilen request ve response aslında `TCP` (en azından HTTP/3 haricinde diyelim) protokolü üzerinden taşınıyor.
@@ -308,3 +310,4 @@ oldukça iyi bir oranda iyileşme sağladığı görülüyor.
 Node tarafında açıkçası beni yanıltan varsayılan HTTP istek modülünün `keep-alive` kullanmamasıydı. Bunu yapmak için agent kullanmanız gerekli. Fakat, tarayıcınız, curl vb. araçlarda ise
 bu davranış varsayılan değer olarak ekleniyor. Bu iyileştirme sayesinde, biz de neredeyse benzer oranlarda bahsettiğim problemi iyileştirdik diyebilirim. Tabi bunu yaparken ezbere yapmak yerine
 her zaman arka planda yatan sebepleri irdelemek ve işin temelini anlayarak yapmak daha güzel oluyor.
+
