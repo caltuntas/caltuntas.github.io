@@ -308,6 +308,15 @@ oldukça iyi bir oranda iyileşme sağladığı görülüyor.
 ## Sonuç
 
 Node tarafında açıkçası beni yanıltan varsayılan HTTP istek modülünün `keep-alive` kullanmamasıydı. Bunu yapmak için agent kullanmanız gerekli. Fakat, tarayıcınız, curl vb. araçlarda ise
-bu davranış varsayılan değer olarak ekleniyor. Bu iyileştirme sayesinde, biz de neredeyse benzer oranlarda bahsettiğim problemi iyileştirdik diyebilirim. Tabi bunu yaparken ezbere yapmak yerine
+bu davranış varsayılan değer olarak ekleniyor. 
+```
+xychart-beta horizontal
+    title "Performance Comparison - 500 Requests"
+    x-axis ["Curl(Keep-alive)", "Curl (Connection-close)","NodeJs", "NodeJs(Keep-alive)"]
+    y-axis "Seconds" 0 --> 5
+    bar [0.56,1.27, 0.90, 2.20]
+    
+```
+Bu iyileştirme sayesinde, biz de neredeyse benzer oranlarda bahsettiğim problemi iyileştirdik diyebilirim. Tabi bunu yaparken ezbere yapmak yerine
 her zaman arka planda yatan sebepleri irdelemek ve işin temelini anlayarak yapmak daha güzel oluyor.
 
