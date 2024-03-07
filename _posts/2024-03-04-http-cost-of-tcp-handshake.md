@@ -340,7 +340,7 @@ bu davranış varsayılan değer olarak ekleniyor.
 ```mermaid
 xychart-beta horizontal
     title "Performance Comparison - 500 Requests"
-    x-axis ["Curl(Keep-alive)", "Curl (Connection-close)","NodeJs(Keep-alive)","NodeJs",]
+    x-axis ["Curl(Keep-alive)", "Curl (Connection-close)","NodeJs(Keep-alive)","NodeJs"]
     y-axis "Seconds" 0 --> 5
     bar [0.56,1.27, 0.90, 2.20]
     
