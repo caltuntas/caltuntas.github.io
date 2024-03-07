@@ -33,15 +33,23 @@ sequenceDiagram
     participant Client
     participant Server
 
-    Client->>Server: SYN (Synchronize)
-    Server-->>Client: SYN-ACK (Synchronize-Acknowledge)
-    Client->>Server: ACK (Acknowledge)
-    Client->>Server: HTTP Request
-    Server-->>Client: HTTP Response
-    Client->>Server: FIN (Finish)
-    Server-->>Client: ACK (Acknowledge)
-    Server-->>Client: FIN (Finish)
-    Client-->>Server: ACK (Acknowledge)
+    Client->>Server: 1. SYN (Synchronize)
+    Server-->>Client: 1. SYN-ACK (Synchronize-Acknowledge)
+    Client->>Server: 1. ACK (Acknowledge)
+    Client->>Server: 1. HTTP Request
+    Server-->>Client: 1. HTTP Response
+    Client->>Server: 1. FIN (Finish)
+    Server-->>Client: 1. ACK (Acknowledge)
+    Server-->>Client: 1. FIN (Finish)
+    Client->>Server: 2. SYN (Synchronize)
+    Server-->>Client: 2. SYN-ACK (Synchronize-Acknowledge)
+    Client->>Server: 2. ACK (Acknowledge)
+    Client->>Server: 2. HTTP Request
+    Server-->>Client: 2. HTTP Response
+    Client->>Server: 2. FIN (Finish)
+    Server-->>Client: 2. ACK (Acknowledge)
+    Server-->>Client: 2. FIN (Finish)
+    Client-->>Server: 2. ACK (Acknowledge)
 ```
 
 Tabi istek bittiğinde de, TCP için yine bağlantıyı kapatmak için yukarıdaki gibi `termination` paketlerini de göndermek gerekiyor. 
@@ -56,6 +64,26 @@ HTTP oldukça eski bir protokol, zamanla web kullanımı arttıkça, yukarıdaki
 TCP bağlantısı açık kapatmaktansa bu bağlantıyı koru ve aynı bağlantı üzerinden diğer isteklerini gönder demişler. 
 
 Bu yöntemin adına ise Mozilla linkinde ki gibi `Persistent Connection` ya da namı diğer `keep-alive` deniliyor. 
+Keep-alive yöntemi ile yukarıdaki gibi grafiği olan 2 adet HTTP Request/Response aşağıdaki gibi gözüküyor.
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+
+    Client->>Server: 1. SYN (Synchronize)
+    Server-->>Client: 1. SYN-ACK (Synchronize-Acknowledge)
+    Client->>Server: ACK (Acknowledge)
+    Client->>Server: 1. HTTP Request
+    Server-->>Client: 1. HTTP Response
+    Client->>Server: 2. HTTP Request
+    Server-->>Client: 2. HTTP Response
+    Client->>Server: 1. FIN (Finish)
+    Server-->>Client: 1. ACK (Acknowledge)
+    Server-->>Client: 1. FIN (Finish)
+    Client-->>Server: 1. ACK (Acknowledge)
+```
+
 
 ## Keep-alive Olmazsa Neler Oluyor
 
@@ -312,7 +340,7 @@ bu davranış varsayılan değer olarak ekleniyor.
 ```mermaid
 xychart-beta horizontal
     title "Performance Comparison - 500 Requests"
-    x-axis ["Curl(Keep-alive)", "Curl (Connection-close)","NodeJs", "NodeJs(Keep-alive)"]
+    x-axis ["Curl(Keep-alive)", "Curl (Connection-close)","NodeJs(Keep-alive)","NodeJs",]
     y-axis "Seconds" 0 --> 5
     bar [0.56,1.27, 0.90, 2.20]
     
