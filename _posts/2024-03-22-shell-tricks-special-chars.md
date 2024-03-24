@@ -21,7 +21,7 @@ verilirse en sorunsuz ve hızlı çalışanı. Genellikle klavye ile kendi bilgi
 Elimizde kalan diğer seçeneklerden `Teams` ya da `Zoom` ile toplantı yapıyorsak ve uzak kontrol verildiyse sıkıntılı dakikalar bizi bekliyor.
 Genelde toplantı şu şekilde ilerliyor.
 
-> ... bey/hanım ben basıyorum ama farklı bir karakter çıkarıyor lütfen {,|,[ tuşuna basabilir misiniz?
+> ... bey/hanım ben basıyorum ama farklı bir karakter çıkarıyor lütfen {,\|,[ tuşuna basabilir misiniz?
 
 Böyle olunca tabi 10 dakika sürecek şeyi 30 dakikada ancak bitirebiliyorsunuz. Diyelim ki bir hata nedeniyle
 log kayıtlarında bir inceleme yapmak istiyorsunuz ve sistem docker üzerinde çalışıyor. Aşağıdaki gibi 
