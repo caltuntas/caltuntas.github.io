@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Bit Operasyonları ve Ascii Tablosu"
-description: "Bit Operasyonları ve Ascii Tablosu"
+title: "Ascii Tablosu Üzerinde Bit Manipülasyonları"
+description: "Ascii Tablosu Üzerinde Bit Manipülasyonları"
 mermaid: false
-date: 2024-06-20T07:00:00-07:00
+date: 2024-06-23T07:00:00-07:00
 tags: c programming encoding bitwise
 ---
 
