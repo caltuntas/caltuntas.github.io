@@ -3,8 +3,8 @@ layout: post
 title: "Bit Operasyonları ve Ascii Tablosu"
 description: "Bit Operasyonları ve Ascii Tablosu"
 mermaid: false
-date: 2024-03-23T07:00:00-07:00
-tags: programming
+date: 2024-06-20T07:00:00-07:00
+tags: c programming encoding bitwise
 ---
 
 __GOTO Conferences__ konuşmalarını bugüne kadar bizzat katılamasam da fırsat buldukça beğenerek takip etmeye çalışıyorum.
