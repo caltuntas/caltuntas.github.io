@@ -27,7 +27,11 @@ istediğiniz şeyi çalışır hale getirebiliyorsunuz. Ufak bir arama yaptıkta
 parametresini de kullandım.
 
 ```
-docker run -v "$(pwd)/tftpdata:/data" --name tftpd --rm -p 69:69/udp -e PUID=$(id -u) -e PGID=$(id -g) wastrachan/tftpd:latest /usr/sbin/in.tftpd -L -v -s -u tftpd --create /data
+docker run -v "$(pwd)/tftpdata:/data" \
+           --name tftpd --rm -p 69:69/udp \
+           -e PUID=$(id -u) -e PGID=$(id -g) \
+           wastrachan/tftpd:latest \
+           /usr/sbin/in.tftpd -L -v -s -u tftpd --create /data
 ```
 
 Diğer taraftan aynı makine üzerinden test yapmak istemediğimden farklı bir IP adresine sahip bir ubuntu sunucuya ise `apt install tftp-hpa -y` ile kurulumu yaptım içinde istemci geldiği için,
@@ -39,7 +43,11 @@ Hazırlıklar tamam, şimdi docker yüklü olan farklı bir ortamda dosyaların 
 
 ```
 user@server:# echo "remote file content" > ./tftpdata/deneme.txt
-user@server:# docker run -v "$(pwd)/tftpdata:/data" --name tftpd --rm -p 69:69/udp -e PUID=$(id -u) -e PGID=$(id -g) wastrachan/tftpd:latest /usr/sbin/in.tftpd -L -v -s -u tftpd --create /data
+user@server:# docker run -v "$(pwd)/tftpdata:/data" \
+                        --name tftpd --rm -p 69:69/udp \
+                        -e PUID=$(id -u) -e PGID=$(id -g) \
+                        wastrachan/tftpd:latest \
+                        /usr/sbin/in.tftpd -L -v -s -u tftpd --create /data
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  Starting tftpd with UID 0 and GID 0...
