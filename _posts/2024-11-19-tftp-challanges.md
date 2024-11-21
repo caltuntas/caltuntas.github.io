@@ -42,8 +42,8 @@ istemciyi oradan kullanmayı planlıyorum.
 Hazırlıklar tamam, şimdi docker yüklü olan farklı bir ortamda dosyaların tutulacağı bir klasör oluşturup ardından yukarıdaki komut ile ayağa kaldırıyorum
 
 ```
-user@server:# echo "remote file content" > ./tftpdata/deneme.txt
-user@server:# docker run -v "$(pwd)/tftpdata:/data" \
+user@server:% echo "remote file content" > ./tftpdata/deneme.txt
+user@server:% docker run -v "$(pwd)/tftpdata:/data" \
                         --name tftpd --rm -p 69:69/udp \
                         -e PUID=$(id -u) -e PGID=$(id -g) \
                         wastrachan/tftpd:latest \
@@ -57,7 +57,7 @@ user@server:# docker run -v "$(pwd)/tftpdata:/data" \
 Diğer taraftan TFTP istemci kurulu olan sunucudan ise ilk testimi yapıyorum.
 
 ```
-user@client:~# tftp 192.168.100.30 69
+user@client:% tftp 192.168.100.30 69
 tftp> get deneme.txt
 Transfer timed out.
 ```
@@ -83,15 +83,15 @@ herhangi bir çıktı üretmemesine şaşırdım diyebilirim.
 Logların neden gelmediğini ya da neden gelen cevabın zaman aşımına uğradığını en hızlı şekilde anlayabilmek `strace` aracı ise sistem çağrılarını incelemeye çalışalım.
 
 ```
-user@server:# docker ps|grep tftp
+user@server:% docker ps|grep tftp
 e015eb5ea549   wastrachan/tftpd:latest            "/docker-entrypoint.…"   29 seconds ago   Up 28 seconds          0.0.0.0:69->69/udp                 tftpd
-user@server:# docker exec -it --privileged e015eb5ea549 sh
-/ #  ps -ef
+user@server:% docker exec -it --privileged e015eb5ea549 sh
+/ % ps -ef
 PID   USER     TIME  COMMAND
     1 root      0:00 /usr/sbin/in.tftpd -L -v -s -u tftpd --create /data
    10 root      0:00 sh
    17 root      0:00 ps -ef
-/ # strace -f -p 1
+/ % strace -f -p 1
 ...
 [pid    28] connect(3, {sa_family=AF_UNIX, sun_path="/dev/log"}, 12) = -1 ENOENT (No such file or directory)
 [pid    28] open("deneme.txt", O_RDONLY|O_LARGEFILE) = 6
@@ -112,7 +112,7 @@ Sıradan bir Linux sunucusu olsa üzerinde zaten systemd ya da farklı bir syslo
 hızlı bir çözüm olarak ilgili, sokete bağlanıp mesaj olarak neler geliyor görmek istedim. Bunun için çok sevdiğim ve hayat kurtaran diğer araçlardan olan [socat](http://www.dest-unreach.org/socat/) kullanmaya karar verdim.
 
 ```
-/ #   socat UNIX-RECVFROM:/dev/log,fork STDOUT
+/ %   socat UNIX-RECVFROM:/dev/log,fork STDOUT
 2024/11/20 12:07:55 socat[44] W address is opened in read-write mode but only supports write-only
 <29>Nov 20 12:07:55 in.tftpd[43]: RRQ from 192.168.100.33 filename deneme.txt
 2024/11/20 12:08:00 socat[46] W address is opened in read-write mode but only supports write-only
@@ -133,9 +133,9 @@ Fakat **tftpd** loglarında (socat için gelenleri yok sayabilirsiniz) aslında 
 Loglarda ilgili dosya talebini aldığını yazıyor, Wireshark paket analizinde de aslında dosyayı gönderdiğini yukarıda görmüştük, bu noktada farklı bir deneme yapmak istedim ve istemci tarafında güvenlik duvarını kapattım.
 
 ```
-user@client:~# ufw disable
+user@client:% ufw disable
 Firewall stopped and disabled on system startup
-user@client:~# tftp 192.168.100.30 69
+user@client:% tftp 192.168.100.30 69
 tftp> get deneme.txt
 Received 18 bytes in 0.1 seconds
 ```
@@ -158,7 +158,7 @@ Tabi bu senaryo ilk başta aklıma gelmediği için biraz uğraştırdı diyebil
 
 
 ```
-user@client:~# dmesg |grep -i ufw
+user@client:% dmesg |grep -i ufw
 [1631380.402041] [UFW BLOCK] IN=ens160 OUT= MAC=00:0c:29:a9:6b:29:00:0c:29:52:d6:b6:08:00 SRC=192.168.100.30 DST=192.168.100.33 LEN=50 TOS=0x00 PREC=0x00 TTL=63 ID=46477 PROTO=UDP SPT=45965 DPT=53958 LEN=30
 [1631381.403837] [UFW BLOCK] IN=ens160 OUT= MAC=00:0c:29:a9:6b:29:00:0c:29:52:d6:b6:08:00 SRC=192.168.100.30 DST=192.168.100.33 LEN=50 TOS=0x00 PREC=0x00 TTL=63 ID=46478 PROTO=UDP SPT=45965 DPT=53958 LEN=30
 [1631383.404338] [UFW BLOCK] IN=ens160 OUT= MAC=00:0c:29:a9:6b:29:00:0c:29:52:d6:b6:08:00 SRC=192.168.100.30 DST=192.168.100.33 LEN=50 TOS=0x00 PREC=0x00 TTL=63 ID=46479 PROTO=UDP SPT=45965 DPT=53958 LEN=30
@@ -183,15 +183,15 @@ En azından sorunun ne olduğunu belirlesek de bunu bu şekilde komple güvenlik
 çözüm olarak birkaç netfilter kernel modülü [yazılmış](https://wiki.nftables.org/wiki-nftables/index.php/Conntrack_helpers), onu yükleyip tekrar deneyelim bakalım sorunumuz çözülecek mi.
 
 ```
-user@client:# modprobe nf_nat_tftp
-user@client:# modprobe nf_conntrack_tftp
-user@client:# sysctl net/netfilter/nf_conntrack_helper=1
+user@client:% modprobe nf_nat_tftp
+user@client:% modprobe nf_conntrack_tftp
+user@client:% sysctl net/netfilter/nf_conntrack_helper=1
 net.netfilter.nf_conntrack_helper = 1
-user@client:# ufw enable
+user@client:% ufw enable
 Command may disrupt existing ssh connections. Proceed with operation (y|n)? y
 Firewall is active and enabled on system startup
-user@client:# modprobe nf_conntrack_tftp
-user@client:# tftp 192.168.100.30 69
+user@client:% modprobe nf_conntrack_tftp
+user@client:% tftp 192.168.100.30 69
 tftp> get deneme.txt
 Received 18 bytes in 0.0 seconds
 tftp>
