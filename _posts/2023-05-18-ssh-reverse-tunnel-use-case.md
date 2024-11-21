@@ -14,7 +14,7 @@ bu yöntemi ve benim sorunumu nasıl çözdüğünü paylaşmak istedim. Mutlaka
 Ürünümüz kullanıcı ağ ortamına kurulup konfigürasyonları yapıldıktan sonra hedef sistemlere gerekli protokoller üzerinden
 erişim gerçekleştirip işlemlerini tamamlıyor. Fakat POC ortamında aşağıdaki gibi bir durumla karşılaştık.
 
-![not accessable diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/caltuntas/caltuntas.github.io/main/puml/ssh-tunnel1.puml)
+![not accessable diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/caltuntas/caltuntas.github.io/main/diagrams/ssh-tunnel1.puml)
 
 Gerekli güvenlik duvarı kurallarının çoğu düzgün ayarlanmış fakat bir sunucu için gerekli kural unutulmuş. Bu sebeple 
 ilgili sunucuya 22 portu üzerinden gitmeye çalıştığımızda erişim engeline takıldık ve POC ilerleyemedi. Ama resimde gösterdiğim gibi
@@ -25,7 +25,7 @@ SSH Reverse Tunnel kısaca uzak bilgisayarın erişemediği fakat SSH tünelin a
 ikisinin bu tünel içinden güvenli şekilde haberleşmesini sağlıyor. Yani bu yöntemi kullanarak ilgili kaynağa erişimi tünel üzerinden
 aşağıdaki gibi sağlayacağız.
 
-![tunnel diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/caltuntas/caltuntas.github.io/main/puml/ssh-tunnel2.puml)
+![tunnel diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/caltuntas/caltuntas.github.io/main/diagrams/ssh-tunnel2.puml)
 
 Gelin bunu benzer bir senaryoda uygulayalım ve laboratuvar ortamımızda bulunan uygulama sunucusunu evimde bulunan NAS sunucusu ile haberleştirelim.
 Normalde ikisi tamamen birbirinden habersiz erişim mümkün değil. Bunun için aşağıdaki komutla SSH ters tünel oluşturuyorum. Ben MacOS üzerinde çalıştığım için
