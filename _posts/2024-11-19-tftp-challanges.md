@@ -146,16 +146,25 @@ açtığı bir bağlantı sonucu geldiyse onu kabul edip işlemeye başlıyor.
 
 Yukarıda görüldüğü gibi, ilk istemci **41102** portunu kullanarak sunucunun standart **69** TFTP portuna istek göndermiş. Normalde sunucunun bu isteğe `69-->41102` olarak yapması gerekirken, sunucu bunun yerine **33437** portunu kullanmış.
 Tabi durum böyle olunca aslında zaten eski iletişimin bir parçası deyip izin vermesi gerekirken, sunucudan istemci yönüne yeni bir bağlantı isteği olarak algılayıp engellemiş. Güvenlik duvarı kayıtlarını kontrol ettiğimizde de engellenmiş olduğunu görebiliyoruz.
-Tabi bu senaryo ilk başta aklıma gelmediği için biraz uğraştırdı diyebiliriz.
+Tabi bu senaryo ilk başta aklıma gelmediği için biraz uğraştırdı diyebiliriz. 
+
 
 ```
-user@server:~# dmesg |grep -i ufw
+user@client:~# dmesg |grep -i ufw
 [1631380.402041] [UFW BLOCK] IN=ens160 OUT= MAC=00:0c:29:a9:6b:29:00:0c:29:52:d6:b6:08:00 SRC=192.168.100.30 DST=192.168.100.33 LEN=50 TOS=0x00 PREC=0x00 TTL=63 ID=46477 PROTO=UDP SPT=45965 DPT=53958 LEN=30
 [1631381.403837] [UFW BLOCK] IN=ens160 OUT= MAC=00:0c:29:a9:6b:29:00:0c:29:52:d6:b6:08:00 SRC=192.168.100.30 DST=192.168.100.33 LEN=50 TOS=0x00 PREC=0x00 TTL=63 ID=46478 PROTO=UDP SPT=45965 DPT=53958 LEN=30
 [1631383.404338] [UFW BLOCK] IN=ens160 OUT= MAC=00:0c:29:a9:6b:29:00:0c:29:52:d6:b6:08:00 SRC=192.168.100.30 DST=192.168.100.33 LEN=50 TOS=0x00 PREC=0x00 TTL=63 ID=46479 PROTO=UDP SPT=45965 DPT=53958 LEN=30
 ```
 
 Biraz TFTP [protokolünü](https://en.wikipedia.org/wiki/Trivial_File_Transfer_Protocol) incelediğinizde aslında bunun beklenen şekilde çalıştığını ve bu şekilde bir yapısı olduğunu görebilirsiniz.
+Bunu bir grafik ile özetlersek, genellikle protokoller aşağıdaki gibi iletişimde bulunurken
+
+![Capture 3](/img/tftp-challanges/traditional-flow.svg)
+
+TFTP protokolü ise alışılmışın dışında bu şekilde bir iletişim sağlıyor.
+
+![Capture 4](/img/tftp-challanges/tftp-flow.svg)
+
 Özetle işletim sistemi, daha önce açtığı bağlantının kaynak ve hedef port bilgilerini tutuyor ve gönderilen paketlerde aynı iletişimin bir parçası olduğunu anlamak için
 client tarafından çıkan paketlerin kaynak portu ne ise, sunucunun ilk hedef portu üzerinden client tarafına cevap dönmesini bekliyor, bu olmayınca yeni bir bağlantı isteği gibi algılayıp,
 client tarafında bu porta dışarıdan direk erişim izni olmadığından engelleniyor.
