@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Traceroute Nasıl Çalışır?"
-description: "Traceroute Nasıl Çalışır?"
+title: "Traceroute Nasıl Çalışır? - Farklı Bir İnceleme"
+description: "Traceroute Nasıl Çalışır? - Farklı Bir İnceleme"
 date: 2025-02-14T07:00:00-07:00
 tags: network,macos,traceroute
 ---
@@ -249,3 +249,15 @@ Daha önce yakaladığımız ve TTL sayısının artmadığı trafiği tekrar yu
 Benim asıl kafa karışıklığımın sebebi traceroute nasıl çalışıyor diye araştırdığımda aslında sadece ICMP ile çalıştığı yazıyordu. Aslında durum bu değil, hatta örnek olarak Fortigate [sitesinden](https://www.fortinet.com/resources/cyberglossary/traceroutes) alıntıyı görebilirsiniz.
 
 >> A traceroute works by sending Internet Control Message Protocol (ICMP) packets, and every router involved in transferring the data gets these packets. The ICMP packets provide information about whether the routers used in the transmission are able to effectively transfer the data.
+
+Genelde nasıl çalıştığı ile ilgili yazılar sadece ICMP protokolünden bahsediyor sanırım bir sebebi de **Windows** işletim sistemi üzerindeki muadili **tracert** bu şekilde çalışıyor yani varsayılan protokol olarak ICMP kullanıyor. Fakat MacOS ve Linux işletim sistemlerinde
+ilk olarak UDP ile paket gönderiyor hatta isterseniz, ICMP ya da TCP üzerinden de paketleri göndermesini sağlayabiliyorsunuz.
+
+## Kapanış
+
+Traceroute özellikle sorun network ile ilgili çözme çalışmalarında alet çantamızda bulunması gereken araçlardan bir tanesi, nasıl çalıştığını hangi durumda ne paket gönderdiğini, hangi portu kullandığını kod üzerinden debug ederek, paket dinleyip detaylarını inceleyerek
+anlamış olduk. Tabi birisi ya bu kadar uğraşa gerek var mıydı, gidip **man** sayfasını okusaydınız zaten orada yazıyordu da diyebilir ve haklıdır. Teknolojide doküman okumamak adettendir ama **man traceroute** okusaydık aşağıdaki satırları görebilirdik.
+
+>> This program attempts to trace the route an IP packet would follow to some internet host by launching UDP probe packets with a small ttl (time to live) then listening for an ICMP "time exceeded" reply from a gateway.  We start our probes with a ttl of one and increase by one until we get an ICMP "port unreachable" (which means we got to "host") or hit a max (which defaults to net.inet.ip.ttl hops & can be changed with the -m flag).  
+
+Ama yine de bence oldukça faydalık bir debugging oturumu oldu, sağlıcakla...
