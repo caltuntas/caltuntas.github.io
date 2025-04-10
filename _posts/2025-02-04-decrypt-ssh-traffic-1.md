@@ -5,6 +5,23 @@ description: "SSH Trafiğini Çözümleyelim 1 -  Patch"
 date: 2025-02-04T07:00:00-07:00
 tags: ssh
 ---
+
+Bu yazı serisi şu ana kadar 2 bölümden oluşmaktadır, diğer bölümlere aşağıdaki linklerden ulaşılabilir. Yazı içeriğinde geçen kodlara
+[bu linkten](https://github.com/caltuntas/ssh-decryption) ulaşabilirsiniz.
+
+
+## Bölümler
+1. [SSH Trafiğini Çözümleyelim 1 - Wireshark](https://www.cihataltuntas.com/2025/02/04/decrypt-ssh-traffic-1) (Bu yazı)
+   - Bu yazıda, genel olarak SSH protokolünün yapısı ve şifreleme için
+     kullanılan anahtar değişim algoritmalarının nasıl çalıştığı inceliyoruz.
+     Ardından var olan bir SSH kütüphanesinin kodu değiştirilerek ele geçirilen
+     şifreleme anahtarlarını kendi yazdığımız kod ile kaydedilmiş bir trafiği
+     çözümlemek için kullanıyoruz.
+2. [SSH Trafiğini Çözümleyelim 2 - Wireshark](https://www.cihataltuntas.com/2025/04/10/decrypt-ssh-traffic-2)
+   - Bu yazıda, Wireshark kullanarak trafiği çözümlemek istediğimizde
+     karşılaştığımız sorunu hata ayıklaması yaparak tespit ediyoruz, sonrasında
+     da Wireshark kodunu düzelterek, trafiği Wireshark üzerinde de
+     çözümlüyoruz.
  
 Yine garip ama sürekli yapılacaklar listemde üst sıralarda yer alan bir konu ile birlikteyiz. 
 SSH benim günlük hayatımda belki de benim en fazla kullandığım protokollerden birisi, diğeri de sanırım 
@@ -15,7 +32,6 @@ bir problem olduğunda cihaz ile aramızda veri alışverişini açık olarak g�
 SSH trafiğini incelerken, onu çözümlemek için ne tarz bir yol izledim, neler yaptım hem kendime not olsun, hem de başkaları da
 yararlanabilir diye burada toparlamak gibi bir planım var. 
 
->> Bu yazıda geliştirilen kodları github ortamına koydum [bu linkten](https://github.com/caltuntas/ssh-decryption) ulaşabilirsiniz.
 
 ## Şifrelenmiş Veri Trafiği
 
