@@ -9,8 +9,6 @@ tags: ssh
 Bu yazı serisi şu ana kadar 2 bölümden oluşmaktadır, diğer bölümlere aşağıdaki linklerden ulaşılabilir. Yazı içeriğinde geçen kodlara
 [bu linkten](https://github.com/caltuntas/ssh-decryption) ulaşabilirsiniz.
 
-
-## Bölümler
 1. [SSH Trafiğini Çözümleyelim 1 - Wireshark](https://www.cihataltuntas.com/2025/02/04/decrypt-ssh-traffic-1) (Bu yazı)
    - Bu yazıda, genel olarak SSH protokolünün yapısı ve şifreleme için
      kullanılan anahtar değişim algoritmalarının nasıl çalıştığı inceliyoruz.
