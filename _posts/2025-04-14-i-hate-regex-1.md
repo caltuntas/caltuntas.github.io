@@ -98,7 +98,7 @@ sonrasında bu belki kullanıcıya gösterme, mail atma ya da sistemde saklama a
 Kodu şu şekilde çalıştıralım ve birkaç girdi ile ürettiği çıktıya bakalım, o zamana kadar siz de sorunu belki çoktan tespit etmiş olursunuz.
 
 ```
-code > node code/regex-replace1.js test1 test2
+code > node code/regex-replace.js test1 test2
 after replacement output=some text template #{placeholder1} and #{placeholder2} and some more text #{placeholder1}
 after replacement output=some text template test1 and #{placeholder2} and some more text #{placeholder1}
 after replacement output=some text template test1 and test2 and some more text #{placeholder1}
@@ -121,7 +121,7 @@ nasıl yazabilirdik onlara da değinmeye çalışacağım fakat şimdilik fazla 
 Sorunu kendi başınıza bulduysanız tebrikler, canlı ortamında sorunu yaşayıp tatsız bir hata ayıklama süreci sonucunda ancak tespit edebilmiştim. Ama benim gibi bulamayanlar için kodu bir de aşağıdaki gibi çağırıp neler olduğuna bakalım.
 
 ```
-code > node code/regex-replace1.js test1 '668%X6g$&8kNUkpZVvb'
+code > node code/regex-replace.js test1 '668%X6g$&8kNUkpZVvb'
 after replacement output=some text template #{placeholder1} and #{placeholder2} and some more text #{placeholder1}
 after replacement output=some text template test1 and #{placeholder2} and some more text #{placeholder1}
 after replacement output=some text template test1 and 668%X6g#{placeholder2}8kNUkpZVvb and some more text #{placeholder1}
@@ -186,7 +186,7 @@ console.log(output);
 Daha önce çok dikkate almadığımız ama eğer, RegEx pattern yerine bir fonksiyon gönderirseniz her eşleşme için bu fonksiyon çağrılıp dönen değer ile değiştirilir yazıyordu, yukarıdaki kod parçasında bu yöntemi kullandık. Çalıştıralım ve sonucu görelim.
 
 ```
-code > node code/regex-replace2.js test1 '668%X6g$&8kNUkpZVvb'
+code > node code/regex-replace-alt-1.js test1 '668%X6g$&8kNUkpZVvb'
 some text template test1 and 668%X6g$&8kNUkpZVvb and some more text test1
 ```
 
@@ -220,7 +220,7 @@ Bu sefer elimizde, yeni NodeJs versiyonu var ve **replaceAll** işimizi daha da 
 **replaceAll** ile değiştirme işlemini yapıyoruz. Tekrar deneyelim ve çalıştığını görelim.
 
 ```
-code > node code/regex-replace2.js test1 '668%X6g$&8kNUkpZVvb'
+code > node code/regex-replace-alt-2.js test1 '668%X6g$&8kNUkpZVvb'
 some text template test1 and 668%X6g$&8kNUkpZVvb and some more text test1
 ```
 
@@ -254,6 +254,14 @@ replacements.forEach((item) => {
 
 console.log(output);
 ```
+
+Denediğimizde yine düzgün çalıştı. 
+
+```
+code > node code/regex-replace-alt-3.js test1 '668%X6g$&8kNUkpZVvb'
+some text template test1 and 668%X6g$&8kNUkpZVvb and some more text test1
+```
+
 
 Burada sinir bozucu olan şey, varsayılan olarak ben A değerini B değeri ile
 değiştirmek istediğinizde RegEx kullanmasanız bile Javascript değiştirilmesi
