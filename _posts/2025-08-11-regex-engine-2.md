@@ -169,7 +169,7 @@ func find(grid [][]byte, word string) bool {
 	for i := 0; i < rows; i++ {
 		cols := len(grid[i])
 		for j := 0; j < cols; j++ {
-			fmt.Printf("Starting point is {%d,%d}=%c\n",i,j,grid[i][j])
+			fmt.Printf("Starting point is { %d,%d }=%c\n",i,j,grid[i][j])
 			result := traverse(grid, Location{i, j})
 			allResults = append(allResults, result...)
 		}
