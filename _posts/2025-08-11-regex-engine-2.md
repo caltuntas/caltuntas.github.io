@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Sıfırdan Regex Motoru - Bölüm 2: Backtracking"
-description: "Sıfırdan Regex Motoru - Bölüm 2: Backtracking"
+title: "Sıfırdan Regex Motoru - Bölüm 2: Backtracking Algoritması"
+description: "Sıfırdan Regex Motoru - Bölüm 2: Backtracking Algoritması"
 date: 2025-08-11T07:00:00-07:00
 tags: regex,nfa,backtracking,golang
 ---
