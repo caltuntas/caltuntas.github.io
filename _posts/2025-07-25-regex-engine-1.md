@@ -14,8 +14,11 @@ oldukça aşağıdaki linklerden ulaşabileceksiniz. Yazı içeriğinde geçen k
    - Bu yazıda, çok kısa ne yapmak istediğimizden, nasıl yapabileceğimizden ve
      bize verilen regex ifadelerinin parse edilip istediğimiz veri yapısı
      içinde nasıl tutabileceğimizden bahsedeceğiz.
-2. [Sıfırdan Regex Motoru - Bölüm 2: Backtracking](https://www.cihataltuntas.com/#) (hazır değil)
-3. [Sıfırdan Regex Motoru - Bölüm 3: NFA](https://www.cihataltuntas.com/#) (hazır değil)
+2. [Sıfırdan Regex Motoru - Bölüm 2: Backtracking Algoritması](https://www.cihataltuntas.com/2025/07/25/regex-engine-2) 
+   - Bu yazıda, Backtracking algoritması nasıl çalışır, recursive algoritmaya göre
+     farkları nelerdir örnekler üzerinden karşılaştırarak anlamaya çalışacağız.
+3. [Sıfırdan Regex Motoru - Bölüm 3: Backtracking Regex Motoru](https://www.cihataltuntas.com/#) 
+4. [Sıfırdan Regex Motoru - Bölüm 4: NFA Regex Motoru](https://www.cihataltuntas.com/#) (hazır değil)
 
 ## Giriş 
 
