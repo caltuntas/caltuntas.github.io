@@ -119,7 +119,7 @@ type Location struct {
 }
 
 func (loc Location) GetNeighbors() []Location {
-	return []Location{{loc.Row - 1, loc.Column}, {loc.Row + 1, loc.Column}, {loc.Row, loc.Column - 1}, {loc.Row, loc.Column + 1}}
+	return []Location{ {loc.Row - 1, loc.Column}, {loc.Row + 1, loc.Column}, {loc.Row, loc.Column - 1}, {loc.Row, loc.Column + 1} }
 }
 
 func isValid(grid [][]byte, currentLoc Location, locs ...Location) bool {
@@ -297,7 +297,7 @@ func find(grid [][]byte, word string) bool {
 		for j := 0; j < cols; j++ {
 			result := make([][]Location, 0)
 			fmt.Println("******new root******")
-			traverse(grid, Location{i, j}, word, []Location{{i, j}}, &result)
+			traverse(grid, Location{i, j}, word, []Location{ {i, j} }, &result)
 			str := pathToString(grid, result)
 			allResults = append(allResults, str...)
 		}
