@@ -468,6 +468,16 @@ backtrack > /usr/bin/time -al ./wordsearchbacktrack
 
 Neredeyse 0 saniyede işini bitirdi, arada kaç kat hız farklı var artık hesaplamasını size bırakıyorum.
 
+Go Benchmark aracı ile daha sonradan çeşitli boyutlarda rastgele matris  üretip bunları da teste tabi tuttum. Bunu sonucunu da ikiye ayırdım.
+Aranılan kelimeyi bulduğu ve bulamadığı durumlarda performans çok değiştiği için bunları ölçtüğümde aşağıdaki gibi bir sonuç çıktı.
+
+![Capture 6](/img/regexengine/found.svg)
+
+![Capture 7](/img/regexengine/notfound.svg)
+
+Bu sonuçlara da bakacak olursanız her iki durumda da Backtracking algoritması matris boyutuna göre neredeyse 0 mikro saniye içinde sonuç vermiş,
+klasik Recursive ise matris boyutu arttıkça sonucu bulması daha uzun vakit almış.
+
 ## Sonuç
 
 Biz Regex motoru yazmayacak mıydık neden bu kadar Backtracking algoritmasını anlamak için uğraştık diyenler için şunu açıklayalım.
