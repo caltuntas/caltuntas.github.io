@@ -19,8 +19,9 @@ pratikte çok anlamlı olmayabilir fakat bilgisayarların nasıl çalıştığı
 Tabi, kendi açımdan hep kafamın köşesinde duran bu konuyu pratik bir örnekle uygulayıp hem daha da pekiştirmek hem de anlatmak açısında güzel bir fırsat olduğu
 için daha fazla uzatmadan başlayalım.
 
-Eğer network programlama yapıyorsanız ya da, alt seviye bir programlama diliyle uğraşıyorsanız ya da yazdığınız programın yüksek seviyeli dillerin(Java,.NET, Python vb.) desteklenmediği
-farklı bir işlemci mimarisinde çalışıyorsa, karşınıza çıkabilecek ve öğrenmeniz gereken kavramlardan birisi [Endian-ness](https://en.wikipedia.org/wiki/Endianness) kavramıdır.
+Eğer network programlama yapıyorsanız, binary dosya okuma yazma, ya da alt
+seviye bir programlama diliyle bit byte gibi veri tipleri ile uğraşıyorsanız, karşınıza çıkabilecek ve öğrenmeniz
+gereken kavramlardan birisi [Endian-ness](https://en.wikipedia.org/wiki/Endianness) kavramıdır.
 
 ## Tedirginlik
 
