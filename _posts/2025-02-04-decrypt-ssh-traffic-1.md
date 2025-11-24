@@ -3,7 +3,7 @@ layout: post
 title: "SSH Trafiğini Çözümleyelim 1 - Patch"
 description: "SSH Trafiğini Çözümleyelim 1 -  Patch"
 date: 2025-02-04T07:00:00-07:00
-tags: ssh
+tags: ssh security cryptography nodejs
 ---
 
 Bu yazı serisi şu ana kadar 2 bölümden oluşmaktadır, diğer bölümlere aşağıdaki linklerden ulaşılabilir. Yazı içeriğinde geçen kodlara
