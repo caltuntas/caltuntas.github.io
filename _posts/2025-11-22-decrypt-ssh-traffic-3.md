@@ -124,7 +124,7 @@ Yukarıdaki açıklamadan anlaşıldığı gibi, sunucu ve istemcinin `e` ve `f`
 her iki tarafından da bilmesi gerekiyor ki aynı ortak anahtara ulaşabilsinler, ilgili RFC dokümanında detaylı belirtilse de ben kendi anlayışıma yardım 
 etsin diye bunu bir akış diyagramına çevirmeyi daha kolay buluyorum. Karşılıklı bu bilgiler nasıl paylaşılıyor ve süreç nasıl işliyor görelim.
 
-```medmaid
+```mermaid
 sequenceDiagram
     Client->>Server: SSH_MSG_KEXINIT
     Server->>Client: SSH_MSG_KEXINIT
@@ -150,7 +150,7 @@ alıp elimizdeki `Privaye Key` değerlerinden biri ile çözümlemek.
 ![Capture 2](/img/sshdecrypt/wireshark-kex2.png)
 ![Capture 3](/img/sshdecrypt/wireshark-kex3.png)
 
-## Şifreleme Anahtarlarının Hesaplanması
+## Ortak Anahtarın Hesaplanması
 
 Elimizde özel anahtar var diyelim, yukarıdaki formüle bakarak aslında ortak anahtar `K` değerini kolaylıkla hesaplayabiliriz.
 Bunu kod ile yapacağımızı düşürsek de, aşağıdakine benzer bir kod, ortak anahtarı bize verecektir.
