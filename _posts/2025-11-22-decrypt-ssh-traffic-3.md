@@ -3,7 +3,7 @@ layout: post
 title: "SSH Trafiğini Çözümleyelim 3 - Private Key"
 description: "SSH Trafiğini Çözümleyelim 3 - Private Key"
 date: 2025-11-22T07:00:00-07:00
-tags: ssh nodejs
+tags: ssh security cryptography nodejs
 ---
  
 
@@ -387,41 +387,12 @@ pcapSession.on("packet", (rawPacket) => {
         console.log(payload.toString("hex"));
         const parser = packetParser(payloadWithoutMessageType, 0);
         if (msg_code === MESSAGE.KEXINIT) {
-          const obj = parser.readObject({
-            cookie: "buffer:16",
-            kex_algorithms: "string",
-            server_host_key_algorithms: "string",
-            encryption_algorithms_client_to_server: "string",
-            encryption_algorithms_server_to_client: "string",
-            mac_algorithms_client_to_server: "string",
-            mac_algorithms_server_to_client: "string",
-            compression_algorithms_client_to_server: "string",
-            compression_algorithms_server_to_client: "string",
-            languages_client_to_server: "string",
-            languages_server_to_client: "string",
-            first_kex_packet_follows: "boolean",
-            reserved: "buffer:4",
-          });
+          const obj = parser.readObject(SSH_MSG_KEXINIT);
           if (direction === "CS") {
             clientKexInitPayload = Buffer.from(payload);
           } else if (direction === "SC") {
             serverKexInitPayload = Buffer.from(payload);
           }
-
-          console.log(obj);
-        } else if (msg_code === MESSAGE.KEXDH_GEX_REQUEST) {
-          console.log("direction = " + direction);
-          const obj = parser.readObject({
-            min: "uint32",
-            n: "uint32",
-            max: "uint32",
-          });
-          console.log(obj);
-        } else if (msg_code === MESSAGE.KEXDH_GEX_GROUP && 1 === 2) {
-          const obj = parser.readObject({
-            p: "mpint",
-            g: "mpint",
-          });
           console.log(obj);
         } else if (
           msg_code === MESSAGE.KEXDH_GEX_INIT ||
@@ -436,18 +407,8 @@ pcapSession.on("packet", (rawPacket) => {
           msg_code === MESSAGE.KEXDH_GEX_REPLY ||
           msg_code === MESSAGE.KEXDH_REPLY
         ) {
-          const obj = parser.readObject({
-            host_key: "mpint",
-            f: "mpint",
-            signature: "mpint",
-          });
-          const hostKeyParser = packetParser(obj.host_key, 0);
-          const hostKeyObj = hostKeyParser.readObject({
-            type: "string",
-            public_key: "mpint",
-          });
+          const obj = parser.readObject(KEXDH_REPLY);
           serverDhGexReply = obj;
-          console.log(hostKeyObj);
         }
       } else {
         let decryptedPacket;
@@ -475,11 +436,7 @@ pcapSession.on("packet", (rawPacket) => {
         console.log(`message code=${msg_name}`);
         if (msg_code === MESSAGE.USERAUTH_REQUEST) {
           const parser = packetParser(decryptedPacket, 6);
-          const obj = parser.readObject({
-            user: "string",
-            service: "string",
-            method: "string",
-          });
+          const obj = parser.readObject(USERAUTH_REQUEST);
           if (obj.method === "password") {
             const passObj = parser.readObject({
               isChange: "boolean",
@@ -491,7 +448,7 @@ pcapSession.on("packet", (rawPacket) => {
         }
       }
       if (msg_code == MESSAGE.NEWKEYS) {
-        const privKey = "somethingyougotfrom ssh-ls.js output";
+        const privKey = "value of the private key printed";
         const clientPrivateKey = Buffer.from(privKey, "hex");
 
         const dh = crypto.createDiffieHellmanGroup("modp2");
@@ -501,16 +458,7 @@ pcapSession.on("packet", (rawPacket) => {
         );
         dhKey.setPublicKey(clientDhPubKey);
         dhKey.setPrivateKey(clientPrivateKey);
-        
         let secret = dhKey.computeSecret(serverDhGexReply.f);
-        console.log("V_C=" + Buffer.from(clientIdentification).toString("hex"));
-        console.log("V_S=" + Buffer.from(serverIdentification).toString("hex"));
-        console.log("I_C=" + clientKexInitPayload.toString("hex"));
-        console.log("I_S=" + serverKexInitPayload.toString("hex"));
-        console.log("K_S=" + serverDhGexReply.host_key.toString("hex"));
-        console.log("e=" + clientDhPubKey.toString("hex"));
-        console.log("f=" + serverDhGexReply.f.toString("hex"));
-        console.log("K=" + secret.toString("hex"));
         const hash = crypto.createHash("sha1");
         sessionId = hash
           .update(
@@ -527,6 +475,7 @@ pcapSession.on("packet", (rawPacket) => {
           )
           .digest();
         console.log("H=" + sessionId.toString("hex"));
+        
         const K = Buffer.allocUnsafe(4 + secret.length);
         K.writeUInt32BE(secret.length, 0);
         K.set(secret, 4);
