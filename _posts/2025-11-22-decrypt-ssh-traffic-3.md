@@ -304,21 +304,15 @@ const algorithms = {
 };
 ```
 
-Yazdığımız kodu test etmek için basit bir SSH trafiği oluşturan `ssh-ls.js` kodunu çalıştırmadan trafiği kaydetmeye başladık, ardından kodu çalıştırıp
-`Private Key` değerini aldık.
-```
-> TARGET_USERNAME=testuser TARGET_PASSWORD="testpassword" TARGET_HOST=192.168.1.125 node ssh-ls.js
+Yazdığımız kodu test etmek için basit bir SSH trafiği oluşturan `ssh-ls.js` kodunu çalıştırıp trafiği kaydetmeye başlıyoruz, ardından 
+`Private Key` değerini alan ve onu `ssh-reconstruct-keys.js` koduna parametre olarak gönderen bir docker imajı hazırladım, bu şekilde paket kaydetme, çözme gibi işlemlerin hepsini kolayca otomatik hale getirdik.
 
+```
+> docker build -t sshdecrypt .
+> docker run --rm -e TARGET_USERNAME=testuser -e TARGET_PASSWORD="testpassword" -e TARGET_HOST=192.168.1.125  sshdecrypt private
+...
 ...
 Private Key :  302e020100300506032b656e04220420a852b2ec81f6f095bd1aa504a5af1d2dc40e52c459f53da38be47ef08682a86d
-...
-```
-
-Bu değeri kodumuza hard-coded olarak yerleştirdikten sonra, trafiği çözümleyecek kod çalıştırıyoruz
-
-```
-> node ssh-reconstruct-keys.js
-
 ...
 ...
 Encrypted SSH Packet, CS : d1332a363fa6ccc430517a01a3b2a18533b26a429c4c9220...
@@ -448,8 +442,10 @@ pcapSession.on("packet", (rawPacket) => {
         }
       }
       if (msg_code == MESSAGE.NEWKEYS) {
-        const privKey = "value of the private key printed";
-        const clientPrivateKey = Buffer.from(privKey, "hex");
+        privKey = process.argv[2];
+        const key=privKey.trim();
+        console.log("private key passed="+key);
+        const clientPrivateKey = Buffer.from(key, "hex");
 
         const dh = crypto.createDiffieHellmanGroup("modp2");
         const dhKey = crypto.createDiffieHellman(
