@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "SSH Trafiğini Çözümleyelim 4 - Bellekte Anahtar Avı"
+title: "SSH Trafiğini Çözümleyelim 4 - Bellekte Anahtar Avı 1"
 description: "SSH Trafiğini Çözümleyelim 4 - Bellekte Anahtar Avı"
 date: 2025-12-04T07:00:00-07:00
 tags: ssh nodejs openssl memory forensics aes
@@ -24,7 +24,7 @@ Bu yazı serisi şu ana kadar 4 bölümden oluşmaktadır, diğer bölümlere a�
 3. [SSH Trafiğini Çözümleyelim 3 - Private Key](https://www.cihataltuntas.com/2025/11/22/decrypt-ssh-traffic-3) 
    - Bu yazıda, Private Key nedir, eğer ele geçirebilirsek trafiği başka
      herhangi bir değer kullanmadan çözümleyebilir miyiz diye inceleme yapıyoruz.
-4. [SSH Trafiğini Çözümleyelim 4 - Bellekte Anahtar Avı](https://www.cihataltuntas.com/2025-12-04-decrypt-ssh-traffic-4) (Bu yazı)
+4. [SSH Trafiğini Çözümleyelim 4 - Bellekte Anahtar Avı 1](https://www.cihataltuntas.com/2025-12-04-decrypt-ssh-traffic-4) (Bu yazı)
    - Bu yazıda, diğer başlıklarda yapılanın aksine, kullandığımız kütüphanede
      herhangi bir değişiklik yapmadan, trafiği çözmemiz için gerekli
      anahtarları bellekten bulmaya çalışıyoruz.
@@ -33,16 +33,17 @@ Bu yazı serisi şu ana kadar 4 bölümden oluşmaktadır, diğer bölümlere a�
 Önceki yazılarda hatırlarsanız, SSH nasıl çalışır, trafik nasıl şifrelenir gibi konulara değindikten sonra trafiği çözmek için günün sonunda ya bütün gerekli 
 şifreleme anahtarlarını kodun içinde değişiklik yaparak yazdırdık ya da özel anahtarı yine kodu değiştirerek elde edip sonrasında diğer anahtarları ondan türeterek
 trafiği çözümledik. Bu zamana kadar yaptıklarımız bize biraz SSH protokolü, biraz şifreleme, anahtar değişimi gibi konular öğretti ama hep kaçak güreştiğimizi kabul etmem lazım.
-Kodu değiştirerek şifreleri ekrana yazdırdıktan sonra trafiği çözmek kolay, peki bunu hiç kod değiştiremeden şifreleri birisinin bize söylemesini gerek duymadan yapabilir miyiz?
+
+Peki bunu hiç kod değiştiremeden, şifreleri ekrana yazdırmadan trafik çözümlemesi yapabilir miyiz?
 Bu yazıda işin zor kısmı için kolları sıvayıp daha önce incelediğimiz SSH kütüphanesi ile oluşturulmuş canlı olarak çalışan, bir oturumun şifreleme anahtarlarını bellekten kendimiz
 bularak trafiği çözümlemeye çalışacağız. Bu tarz bellekten kanıt bulmak, veri çıkarmak [Memory Forensics](https://en.wikipedia.org/wiki/Memory_forensics) başlığı altında inceleniyor ve genellikle [Volatility](https://github.com/volatilityfoundation/volatility) gibi bu işe özel araçlarla daha kolay yapılabiliyor. 
-Fakat ben bu konuyu daha derinlemesine öğrenmek için bu tarz bir araç kullanmadım ve yaparken hem zorlandım, hem çok fazla şey öğrendim hem de inanılmaz keyif aldım, umarım siz de aynı şekilde okurken keyif alırsınız, hadi başlayalım.
+Fakat bu konuyu daha derinlemesine öğrenmek için bu tarz bir araç kullanmadım ve yaparken hem zorlandım, hem çok fazla şey öğrendim hem de inanılmaz keyif aldım, umarım siz de aynı şekilde okurken keyif alırsınız, hadi başlayalım.
 
 ## Şifreleme Anahtarları Nerede? 
 
 SSH ile bir uzak sunucuya bağlantı kurduğumuzda aslında arka planda bir program çalıştırmış oluyoruz ve gelen giden trafik o program tarafından çözümlenip bizim ekranımızda beliriyor.
 Önceki yazılardan anlamış olduğumuz gibi, biz dışarıdan bakanlar olarak trafiği ele geçirsek de içeriğini anlayamıyoruz fakat o program kendi içeriğinde tuttuğu şifreleme anahtarları ile
-trafiği çözümleyip biz kullanıcılara anlamlı bilgiler gösterebiliyor. Bu da bize, programın şifreleme anahtarlarını vermese de kendi içeriğinde bunları bir yerde tutup sürekli kullandığını
+trafiği çözümleyip biz kullanıcılara anlamlı bilgiler gösterebilir. Bu da bize, programın şifreleme anahtarlarını vermese de kendi içeriğinde bunları bir yerde tutup sürekli kullandığını
 gösteriyor, aksi durumda kendisi de trafiği çözümleyemezdi zaten. Biz de bu varsayımı kullanıp program bu bilgileri bellekte ya da diskte nerede tutuyorsa oradan ele geçirip trafiği çözümlemeye çalışacağız.
 
 Diskte tutmak çok anlamlı değil, hem kötü niyetli kişilerin disk üzerinden bu bilgileri ele geçirmesi çok kolay olur, hem de performans olarak sürekli şifrelenmiş veri alış verişi sırasında diske erişmek 
@@ -120,8 +121,8 @@ this._sig = undefined;
 
 SSH kütüphanesi, `config` nesnesini ve içinde bulunan gerekli tüm şifreleme anahtarlarını oluşturduktan sonra, yukarıdaki işlemi yaparak, `this._dh = null;` ile Diffie-Hellman algoritmasını
 oluşturan nesneyi ve dolaylı olarak içinde tutulan değerleri yani `Private, Public Key` değerlerini temizlemiş oluyor. Nodejs garbage collector çalıştığında ilgili değerleri bellekten temizlendiği
-için bu işlemi Private Key üzerinden yapmamız mümkün değil. Teoride eğer GC çalışmadan programın belleğine erişip değeri okursanız bu mümkün ama saniyeler ile yarışmanız gerekiyor, bu hem 
-gereksiz bir çaba olacak ve hem de iyi ve garanti bir yöntem olduğundan bunu bahsettiğim sebeplerden dolayı eliyoruz.
+için bu işlemi Private Key üzerinden yapmamız mümkün değil. Teoride eğer GC çalışmadan programın belleğine erişip değeri okursanız bu mümkün ama Nodejs GC ne zaman çalışacak belli değil, bu yüzden private key bulmaya çalışmak 
+hem gereksiz bir çaba olacak ve hem de daha iyi ve garanti bir yöntem olduğundan bunu eliyoruz.
 
 Zaten biraz düşünürsek hangi değerleri bellekten aramanın daha mantıklı olduğunu hemen bulabiliriz,  önceki yazılarda incelediğimizde SSH protokolünün `KEX` anahtar değişim sürecinin tek amacı
 oturum boyunca kullanacağı şifreleme anahtarlarının üretilmesi, Private Key, Shared Secret aslında bunları üretmek için kullandığımız ara değerler ama KEX sürecinin sonunda oluşturduğumuz nihai 
@@ -343,7 +344,7 @@ Bu bilgiyi kullanarak şöyle bir algoritma oluşturabiliriz.
 2. 128 bit(16 byte) oku (şifreleme ve round-key boyutu)
 3. Aldığın bu değeri AES anahtarı gibi düşün ve round-key değerini hesapla
 4. Bir sonraki 128 bit(16 byte) değeri oku
-5. Hesapladığın round-key değeri ile karşılaştır, yanlış ile bellekten ilk seçtiğin adresi 1 byte, arttır ve yeni aday anahtar ile başa dön.
+5. Hesapladığın round-key değeri ile karşılaştır, yanlış ile bellekten ilk seçtiğin adresi 1 byte kaydırarak devam et.
 6. Eğer karşılaştırdığın değer aynı ise, bir sonraki round-key hesabını yap ve onu da sonraki 128 bitlik değer ile karşılaştır
 7. Bu işlemi 10 defa yapıp her defasında hesapladığın round-key ile bellekte bulunan 128 bitlik değer aynı ise, tebrikler şifreleme anahtarını buldun.
 
@@ -366,4 +367,5 @@ Aday Anahtar: 3          [A1|7C|99|FF|3B|8D|C4|65|77|23|88|09|AE|01|02|03]
 Her aday anahtar seçimi sonrası yukarıda bahsettiğim, o anahtar için round-key hesaplanıp sonraki 16 byte ile karşılaştıracak doğru olması durumunda ise, aynı karşılaştırma 
 10 defa yapılacak, hepsi doğru ise bu aday anahtarı artık gerçek anahtar olarak değerlendireceğiz, değil ise yeni bir aday anahtarı yukarıdaki gibi seçip devam edecek.
 
-Yazı oldukça uzadı ama en azından algoritmayı oluşturabildik. Bir sonraki bölümde algoritmayı koda dönüştürüp, trafiği çözümlemede önümüze çıkacak diğer konularla devam edelim.
+Yazı oldukça uzadı ama en azından algoritmayı oluşturabildik. Bir sonraki bölümde algoritmayı koda dönüştürüp, trafiği çözümlemede önümüze çıkacak diğer sorunları halledip bunu çalışan bir araca dönüştüreceğiz ki, bu
+serinin en heyecanlı bölümü ve aynı zamanda kapanışı olacak.
